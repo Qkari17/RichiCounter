@@ -1,5 +1,5 @@
 import { HomePage } from "./Pages/HomePage";
-import { HanForm } from "./Pages/HanForm";
+import { HanForm } from "./Pages/Hanchan/HanForm";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = {

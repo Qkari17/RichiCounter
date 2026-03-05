@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "../ui/Button/Button";
-import { Input } from "../ui/Button/Input";
+import { Button } from "../../ui/Button/Button";
+import { Input } from "../../ui/Button/Input";
 
 const initialPlayers = [
   {
@@ -52,6 +52,7 @@ export const HanForm = () => {
                 id={player.wind}
                 value={player.name}
                 onChange={(e) => handlePlayerName(e, index)}
+                required
               />
             ))}
           </form>
