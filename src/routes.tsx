@@ -1,10 +1,10 @@
 import { HomePage } from "./Pages/HomePage";
-import { HanForm } from "./Pages/Hanchan/HanForm";
 import { createBrowserRouter } from "react-router-dom";
+import { HanApp } from "./Pages/Hanchan";
 
 export const routes = {
   HOME: "/",
-  HANFORM: "/hanform",
+  HANAPP: "/hanform",
 };
 
 export const router = createBrowserRouter([
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: routes.HANFORM,
-    element: <HanForm />,
+    path: routes.HANAPP,
+    element: <HanApp />,
   },
 ]);
