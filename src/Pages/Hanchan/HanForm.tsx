@@ -16,13 +16,11 @@ export const HanForm = () => {
         <h1 className="font-bold text-2xl ">Richi Counter</h1>
       </header>
       <main className="p-4">
-        <section className="flex flex-col p-4 bg-blue-600 rounded-2xl items-center gap-6 position: relative">
+        <section className="flex flex-col p-4 bg-blue-600 rounded-2xl items-center gap-6 relative">
           <Link to="/">
             <Button
               label="<="
-              className={
-                "rounded-full bg-red-400 position: absolute top-4 left-4"
-              }
+              className={"rounded-full bg-red-400 absolute top-4 left-4"}
             ></Button>
           </Link>
           <h1 className="text-gray-50 text-4xl">Players</h1>
@@ -38,12 +36,14 @@ export const HanForm = () => {
               />
             ))}
           </form>
-          <Button
-            className={"bg-red-400"}
-            label="Next"
-            type="submit"
-            omClick={console.log(playerList)}
-          />
+          <Link to="hanboard">
+            <Button
+              className={"bg-red-400"}
+              label="Next"
+            
+             
+            />
+          </Link>
         </section>
       </main>
     </div>
