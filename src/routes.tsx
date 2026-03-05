@@ -4,7 +4,7 @@ import { HanApp } from "./Pages/Hanchan";
 
 export const routes = {
   HOME: "/",
-  HANAPP: "/hanform",
+  HANAPP: "/hanapp/",
 };
 
 export const router = createBrowserRouter([
