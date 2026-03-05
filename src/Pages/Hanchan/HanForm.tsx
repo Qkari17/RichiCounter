@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Button } from "../../ui/Button/Button";
 import { Input } from "../../ui/Button/Input";
 import { useHan } from "./HanContext";
@@ -15,7 +16,15 @@ export const HanForm = () => {
         <h1 className="font-bold text-2xl ">Richi Counter</h1>
       </header>
       <main className="p-4">
-        <section className="flex flex-col p-4 bg-blue-600 rounded-2xl items-center gap-6 ">
+        <section className="flex flex-col p-4 bg-blue-600 rounded-2xl items-center gap-6 position: relative">
+          <Link to="/">
+            <Button
+              label="<="
+              className={
+                "rounded-full bg-red-400 position: absolute top-4 left-4"
+              }
+            ></Button>
+          </Link>
           <h1 className="text-gray-50 text-4xl">Players</h1>
           <form className="flex flex-col items-center gap-5">
             {playerList.map((player, index) => (
