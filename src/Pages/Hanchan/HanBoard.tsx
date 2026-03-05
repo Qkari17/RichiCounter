@@ -1,28 +1,38 @@
+import { useState } from "react";
+import { useHan } from "./HanContext";
+
 export const HanBoard = () => {
+  const { playerList, setPlayerList } = useHan();
+  const [round, setRound] = useState(1);
+  const [honba, setHonba] = useState(0);
   return (
     <div className="bg-yellow-300 flex-col flex h-screen w-screen gap-5 p-4">
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl  flex-col flex  justify-between ">
         <div className="flex justify-center">
-          <div>
-            <h1>North</h1>
-            <p>points</p>
+          <div className="flex flex-col items-center ">
+            <h1>{playerList[3].name} North</h1>
+            <p>{playerList[3].points}</p>
           </div>
         </div>
         <div className="  flex justify-between">
-          <div className="rotate-90">
-            <h1>name</h1>
-            <p>points</p>
+          <div className="rotate-90 flex flex-col items-center">
+            <h1>{playerList[2].name} West</h1>
+            <p>
+              {playerList[2].points} 
+            </p>
           </div>
-          <div className="content-center">rounds</div>
-          <div className="-rotate-90">
-            <h1>name</h1>
-            <p>points</p>
+          <div className="content-center">
+            {round} {honba > 0 && `/ ${honba}`}
+          </div>
+          <div className="-rotate-90 flex flex-col items-center">
+            <h1>{playerList[1].name} South</h1>
+            <p>{playerList[1].points}</p>
           </div>
         </div>
         <div className="flex justify-center">
-          <div>
-            <h1>South</h1>
-            <p>points</p>
+          <div className="flex flex-col items-center">
+            <h1>{playerList[0].name} East</h1>
+            <p>{playerList[0].points}</p>
           </div>
         </div>
       </main>
