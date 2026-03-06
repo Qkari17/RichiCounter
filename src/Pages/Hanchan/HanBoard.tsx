@@ -15,7 +15,7 @@ export const HanBoard = () => {
     <div className="bg-yellow-300 flex-col flex h-screen w-screen gap-5 p-4">
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl  flex-col flex  justify-between ">
         <div className="flex justify-center">
-          <div className="flex flex-col items-center ">
+          <div className="flex flex-col items-center rotate-180">
             <h1>{playerList[3].name} North</h1>
             <p className={isMenu ? "":"hidden"}>{playerList[3].points}</p>
           </div>
