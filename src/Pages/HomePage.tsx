@@ -12,7 +12,7 @@ export const HomePage = () => {
         className="flex justify-center
       "
       >
-        <Link to={routes.HANAPP}>
+        <Link to="hanapp">
           <Button
             label="Hanchan"
             className={"bg-amber-600 text-3xl hover:bg-amber-400"}
