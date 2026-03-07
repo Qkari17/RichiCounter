@@ -18,26 +18,26 @@ export const HanBoard = () => {
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
             <h1>{playerList[3].name} North</h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[3].points}</p>
+            <p className={isMenu ? "hidden" : ""}>{playerList[3].points}</p>
           </div>
         </div>
         <div className="  flex justify-between">
           <div className="rotate-90 flex flex-col items-center">
             <h1>{playerList[2].name} West</h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[2].points}</p>
+            <p className={isMenu ? "hidden" : ""}>{playerList[2].points}</p>
           </div>
           <div className="content-center">
             {round} {honba > 0 && `/ ${honba}`}
           </div>
           <div className="-rotate-90 flex flex-col items-center">
             <h1>{playerList[1].name} South</h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[1].points}</p>
+            <p className={isMenu ? "hidden" : ""}>{playerList[1].points}</p>
           </div>
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center">
             <h1>{playerList[0].name} East</h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[0].points}</p>
+            <p className={isMenu ? "hidden" : ""}>{playerList[0].points}</p>
           </div>
         </div>
         <Button
@@ -47,7 +47,7 @@ export const HanBoard = () => {
           }
           onClick={handleMenu}
         ></Button>
-        <TypeMenu />
+        <TypeMenu status={isMenu} seter={setIsMenu} />
       </main>
     </div>
   );
