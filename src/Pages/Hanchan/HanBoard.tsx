@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHan } from "./HanContext";
 import { Button } from "../../ui/Button/Button";
 import { TypeMenu } from "../../Components/TypeOfEnding";
@@ -12,7 +12,17 @@ export const HanBoard = () => {
   const handleMenu = () => {
     setIsMenu((m) => !m);
   };
-  return (
+
+   const windSetter = () =>{
+    console.log(round)
+   }
+
+   useEffect(()=>{
+    windSetter();
+   }, [round])
+
+  
+     return (
     <div className="bg-yellow-300 flex-col flex h-screen w-screen gap-5 p-4">
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl flex-col flex justify-between  overflow-hidden">
         <div className="flex justify-center">
