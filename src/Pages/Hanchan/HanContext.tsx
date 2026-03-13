@@ -34,8 +34,9 @@ const initialPlayers = [
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
   const [playerList, setPlayerList] = useState(initialPlayers);
+
   return (
-    <HanContext.Provider value={{ playerList, setPlayerList }}>
+    <HanContext.Provider value={{ playerList, setPlayerList}}>
       {children}
     </HanContext.Provider>
   );

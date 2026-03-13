@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "../ui/Button/Button";
+import { RonSelector } from "./RonSelector";
 
 export const TypeMenu = ({ status, seter }) => {
   const [ron, setRon] = useState(true);
@@ -33,6 +34,7 @@ export const TypeMenu = ({ status, seter }) => {
           ></Button>
         </div>
       </section>
+      <RonSelector status={ron} />
     </>
   );
 };
