@@ -6,24 +6,28 @@ const initialPlayers = [
     wind: "East",
     points: 0,
     chombo: 0,
+    delear: true,
   },
   {
     name: "",
     wind: "South",
     points: 0,
     chombo: 0,
+    delear: false,
   },
   {
     name: "",
     wind: "West",
     points: 0,
     chombo: 0,
+    delear: false,
   },
   {
     name: "",
     wind: "North",
     points: 0,
     chombo: 0,
+    delear: false,
   },
 ];
 
@@ -37,4 +41,5 @@ export const HanProvider = ({ children }) => {
   );
 };
 export const useHan = () => {
-  return useContext(HanContext);}
+  return useContext(HanContext);
+};

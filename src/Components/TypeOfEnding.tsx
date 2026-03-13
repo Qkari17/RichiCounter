@@ -1,17 +1,27 @@
+import { useState } from "react";
 import { Button } from "../ui/Button/Button";
 
-export const TypeMenu = ({status, seter}) => {
+export const TypeMenu = ({ status, seter }) => {
+  const [ron, setRon] = useState(true);
   return (
     <>
       <section
         className={
           status
-            ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col`
-            : "hidden"
+            ? "hidden"
+            : ron
+              ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col`
+              : "hidden"
         }
       >
         <div className="bg-blue-400 w-1/2 h-1/2 rounded-2xl flex flex-col justify-around p-10">
-          <Button label={"Ron"} className={"bg-red-400"}></Button>
+          <Button
+            label={"Ron"}
+            className={"bg-red-400"}
+            onClick={() => {
+              setRon((m) => !m);
+            }}
+          ></Button>
           <Button label={"Tsumo"} className={"bg-red-400"}></Button>
           <Button label={"Tie"} className={"bg-red-400"}></Button>
           <Button
