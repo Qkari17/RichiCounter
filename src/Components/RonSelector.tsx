@@ -3,16 +3,20 @@ import { useHan } from "../Pages/Hanchan/HanContext";
 
 export const RonSelector = ({ status }) => {
   const { playerList, setPlayerList } = useHan();
-  const [mode, setMode] = useState("loser")
+  const [mode, setMode] = useState("loser");
 
-  const handleClick = (i) => {  const newPlayerList = playerList.slice();
-     if( mode === "loser"){
+  const handleClick = (i) => {
+    const newPlayerList = playerList.slice();
+    if (playerList[i].loser === true || playerList[i].winner === true) {
+      return;
+    }  else if (mode === "loser") {
       newPlayerList[i].loser = true;
-    setPlayerList(newPlayerList);
-    setMode("winner")} else {
-       newPlayerList[i].winner = true;
-       setPlayerList(newPlayerList)
-      console.log(playerList)
+      setPlayerList(newPlayerList);
+      setMode("winner");
+    }  else {
+      newPlayerList[i].winner = true;
+      setPlayerList(newPlayerList);
+      console.log(playerList);
     }
   };
 
