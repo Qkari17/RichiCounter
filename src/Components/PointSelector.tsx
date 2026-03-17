@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/Button/Button";
+import { useHan } from "../Pages/Hanchan/HanContext";
+import { ronNon } from "./ScoringSheet";
 
 export const PointSelector = () => {
   const [han, setHan] = useState(1);
   const [fu, setFu] = useState(30);
+  const [score, setScore] = useState();
+  const { playerList } = useHan();
 
   const IncrementHan = () => {
     if (han >= 27) {
@@ -35,11 +39,30 @@ export const PointSelector = () => {
   const trueHan = han - 1;
 
   const trueFu = (fu) => {
-  if (fu === 20) return 0;
-  if (fu === 25) return 1;
-  return (fu - 20) / 10 + 1;
-};
+    if (fu === 20) return 0;
+    if (fu === 25) return 1;
+    return (fu - 20) / 10 + 1;
+  };
+ const HandleScoring = () => {
+  let value;
 
+  if (han >= 13) {
+    value = 32000;
+  } else if (han >= 11) {
+    value = 24000;
+  } else if (han >= 8) {
+    value = 16000;
+  } else if (han >= 6) {
+    value = 12000;
+  } else if (han === 5) {
+    value = 8000;
+  } else {
+    value = ronNon[trueHan][trueFu(fu)];
+  }
+
+  setScore(value);
+  console.log(value);
+};
   return (
     <>
       <main className=" absolute top-0 left-0 w-full h-full flex items-center justify-center">
@@ -75,7 +98,7 @@ export const PointSelector = () => {
           <Button
             label={"ok"}
             className={"p-2 bg-amber-500 border rounded-2xl px-10"}
-            onClick={console.log(trueFu)}
+            onClick={() => HandleScoring()}
           />
           <h3>{trueFu(fu)}</h3>
         </section>
