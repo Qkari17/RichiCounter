@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/Button/Button";
 
 export const PointSelector = () => {
@@ -31,6 +31,15 @@ export const PointSelector = () => {
       setFu((prev) => prev - 5);
     } else setFu((prev) => prev - 10);
   };
+
+  const trueHan = han - 1;
+
+  const trueFu = (fu) => {
+  if (fu === 20) return 0;
+  if (fu === 25) return 1;
+  return (fu - 20) / 10 + 1;
+};
+
   return (
     <>
       <main className=" absolute top-0 left-0 w-full h-full flex items-center justify-center">
@@ -66,7 +75,9 @@ export const PointSelector = () => {
           <Button
             label={"ok"}
             className={"p-2 bg-amber-500 border rounded-2xl px-10"}
+            onClick={console.log(trueFu)}
           />
+          <h3>{trueFu(fu)}</h3>
         </section>
       </main>
     </>
