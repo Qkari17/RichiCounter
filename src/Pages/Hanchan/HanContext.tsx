@@ -7,6 +7,8 @@ const initialPlayers = [
     points: 0,
     chombo: 0,
     delear: true,
+    winner: false,
+    loser: false,
   },
   {
     name: "",
@@ -14,6 +16,8 @@ const initialPlayers = [
     points: 0,
     chombo: 0,
     delear: false,
+    winner: false,
+    loser: false,
   },
   {
     name: "",
@@ -21,6 +25,8 @@ const initialPlayers = [
     points: 0,
     chombo: 0,
     delear: false,
+    winner: false,
+    loser: false,
   },
   {
     name: "",
@@ -28,6 +34,8 @@ const initialPlayers = [
     points: 0,
     chombo: 0,
     delear: false,
+    winner: false,
+    loser: false,
   },
 ];
 
@@ -36,7 +44,7 @@ export const HanProvider = ({ children }) => {
   const [playerList, setPlayerList] = useState(initialPlayers);
 
   return (
-    <HanContext.Provider value={{ playerList, setPlayerList}}>
+    <HanContext.Provider value={{ playerList, setPlayerList }}>
       {children}
     </HanContext.Provider>
   );
