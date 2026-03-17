@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { useHan } from "../Pages/Hanchan/HanContext";
 
 export const RonSelector = ({ status }) => {
   const { playerList, setPlayerList } = useHan();
+  const [mode, setMode] = useState("loser")
 
-  const selectingLoser = (i) => {
-    const newPlayerList = playerList.slice();
-    newPlayerList[i].loser = true;
+  const handleClick = (i) => {  const newPlayerList = playerList.slice();
+     if( mode === "loser"){
+      newPlayerList[i].loser = true;
     setPlayerList(newPlayerList);
+    setMode("winner")} else {
+       newPlayerList[i].winner = true;
+       setPlayerList(newPlayerList)
+      console.log(playerList)
+    }
   };
 
   return (
@@ -19,19 +26,19 @@ export const RonSelector = ({ status }) => {
         }
       >
         <button
-          onClick={() => selectingLoser(3)}
+          onClick={() => handleClick(3)}
           className="col-span-2 bg-amber-50"
         ></button>
         <button
-          onClick={() => selectingLoser(1)}
+          onClick={() => handleClick(1)}
           className="bg-red-400 row-span-2"
         ></button>
         <button
-          onClick={() => selectingLoser(2)}
+          onClick={() => handleClick(2)}
           className="bg-gray-500 row-span-2"
         ></button>
         <button
-          onClick={() => selectingLoser(0)}
+          onClick={() => handleClick(0)}
           className="col-span-2 bg-indigo-400"
         ></button>
       </section>
