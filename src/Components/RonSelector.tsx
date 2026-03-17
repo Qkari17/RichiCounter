@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { useHan } from "../Pages/Hanchan/HanContext";
-import { PointSelector } from "./PointSelector";
 
-export const RonSelector = ({ status }) => {
+export const RonSelector = ({ status, setMode, mode }) => {
   const { playerList, setPlayerList } = useHan();
-  const [mode, setMode] = useState("loser");
 
   const handleClick = (i) => {
     const newPlayerList = playerList.slice();
     if (playerList[i].loser === true || playerList[i].winner === true) {
       return;
-    }  else if (mode === "loser") {
+    } else if (mode === "loser") {
       newPlayerList[i].loser = true;
       setPlayerList(newPlayerList);
       setMode("winner");
-    }  else {
+    } else {
       newPlayerList[i].winner = true;
       setPlayerList(newPlayerList);
       console.log(playerList);
+      setMode("result");
     }
   };
 
@@ -46,7 +45,6 @@ export const RonSelector = ({ status }) => {
           onClick={() => handleClick(0)}
           className="col-span-2 bg-indigo-400"
         ></button>
-       
       </section>
     </>
   );

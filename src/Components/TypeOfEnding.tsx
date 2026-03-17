@@ -5,6 +5,7 @@ import { PointSelector } from "./PointSelector";
 
 export const TypeMenu = ({ status, seter }) => {
   const [ron, setRon] = useState(true);
+    const [mode, setMode] = useState("loser");
   return (
     <>
       <section
@@ -35,8 +36,8 @@ export const TypeMenu = ({ status, seter }) => {
           ></Button>
         </div>
       </section>
-      <RonSelector status={ron} />
-       <PointSelector/>
+      <RonSelector status={ron} mode={mode} setMode={setMode}/>
+       <PointSelector mode={mode} setMode={setMode}/>
     </>
   );
 };

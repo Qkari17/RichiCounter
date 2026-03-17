@@ -3,7 +3,7 @@ import { Button } from "../ui/Button/Button";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { ronNon } from "./ScoringSheet";
 
-export const PointSelector = () => {
+export const PointSelector = ({mode , setMode}) => {
   const [han, setHan] = useState(1);
   const [fu, setFu] = useState(30);
   const [score, setScore] = useState();
@@ -61,11 +61,12 @@ export const PointSelector = () => {
   }
 
   setScore(value);
+  setMode("winner")
   console.log(value);
 };
   return (
     <>
-      <main className=" absolute top-0 left-0 w-full h-full flex items-center justify-center">
+      <main className={mode=="result" ? "absolute top-0 left-0 w-full h-full flex items-center justify-center":"hidden"}>
         <section className="bg-fuchsia-500 p-10 rounded-4xl border-2 flex flex-col gap-2 items-center">
           <h1>Han</h1>
           <div className="flex gap-6 items-center">
