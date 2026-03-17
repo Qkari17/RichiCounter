@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const RonSelector = ({ status, setMode, mode }) => {
+export const RonSelector = ({
+  status,
+  setMode,
+  mode,
+  setPendingWinner,
+  setLoser,
+}) => {
   const { playerList, setPlayerList } = useHan();
 
   const handleClick = (i) => {
@@ -11,11 +17,10 @@ export const RonSelector = ({ status, setMode, mode }) => {
     } else if (mode === "loser") {
       newPlayerList[i].loser = true;
       setPlayerList(newPlayerList);
+      setLoser(i);
       setMode("winner");
     } else {
-      newPlayerList[i].winner = true;
-      setPlayerList(newPlayerList);
-      console.log(playerList);
+      setPendingWinner(i);
       setMode("result");
     }
   };

@@ -3,10 +3,10 @@ import { Button } from "../ui/Button/Button";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { ronNon } from "./ScoringSheet";
 
-export const PointSelector = ({mode , setMode}) => {
+export const PointSelector = ({mode , setMode, score, setScore, onScoreCalculated}) => {
   const [han, setHan] = useState(1);
   const [fu, setFu] = useState(30);
-  const [score, setScore] = useState();
+
   const { playerList } = useHan();
 
   const IncrementHan = () => {
@@ -63,6 +63,7 @@ export const PointSelector = ({mode , setMode}) => {
   setScore(value);
   setMode("winner")
   console.log(value);
+  onScoreCalculated(value)
 };
   return (
     <>

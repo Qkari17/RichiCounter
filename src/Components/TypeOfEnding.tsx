@@ -2,10 +2,27 @@ import { useState } from "react";
 import { Button } from "../ui/Button/Button";
 import { RonSelector } from "./RonSelector";
 import { PointSelector } from "./PointSelector";
+import { useHan } from "../Pages/Hanchan/HanContext";
 
 export const TypeMenu = ({ status, seter }) => {
   const [ron, setRon] = useState(true);
-    const [mode, setMode] = useState("loser");
+  const [mode, setMode] = useState("loser");
+  const [score, setScore] = useState(null);
+  const [pendingWinner, setPendingWinner] = useState(null);
+  const [loser, setLoser] = useState(null);
+  const { playerList, setPlayerList } = useHan();
+  const handleScoreCalculated = (score) => {
+    if (pendingWinner !== null) {
+      const newList = [...playerList];
+      newList[pendingWinner].winner = true;
+      newList[pendingWinner].points = newList[pendingWinner].points + score;
+      newList[loser].points = newList[loser].points - score;
+      setPlayerList(newList);
+      setPendingWinner(null);
+      setScore(null);
+      console.log(playerList);
+    }
+  };
   return (
     <>
       <section
@@ -36,8 +53,20 @@ export const TypeMenu = ({ status, seter }) => {
           ></Button>
         </div>
       </section>
-      <RonSelector status={ron} mode={mode} setMode={setMode}/>
-       <PointSelector mode={mode} setMode={setMode}/>
+      <RonSelector
+        status={ron}
+        mode={mode}
+        setMode={setMode}
+        setPendingWinner={setPendingWinner}
+        setLoser={setLoser}
+      />
+      <PointSelector
+        mode={mode}
+        setMode={setMode}
+        score={score}
+        setScore={setScore}
+        onScoreCalculated={handleScoreCalculated}
+      />
     </>
   );
 };
