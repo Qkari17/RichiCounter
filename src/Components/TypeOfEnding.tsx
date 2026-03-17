@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/Button/Button";
 import { RonSelector } from "./RonSelector";
+import { PointSelector } from "./PointSelector";
 
 export const TypeMenu = ({ status, seter }) => {
   const [ron, setRon] = useState(true);
@@ -11,7 +12,7 @@ export const TypeMenu = ({ status, seter }) => {
           status
             ? "hidden"
             : ron
-              ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col`
+              ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col `
               : "hidden"
         }
       >
@@ -35,6 +36,7 @@ export const TypeMenu = ({ status, seter }) => {
         </div>
       </section>
       <RonSelector status={ron} />
+       <PointSelector/>
     </>
   );
 };

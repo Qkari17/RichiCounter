@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHan } from "../Pages/Hanchan/HanContext";
+import { PointSelector } from "./PointSelector";
 
 export const RonSelector = ({ status }) => {
   const { playerList, setPlayerList } = useHan();
@@ -45,6 +46,7 @@ export const RonSelector = ({ status }) => {
           onClick={() => handleClick(0)}
           className="col-span-2 bg-indigo-400"
         ></button>
+       
       </section>
     </>
   );
