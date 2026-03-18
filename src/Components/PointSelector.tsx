@@ -64,6 +64,7 @@ export const PointSelector = ({mode , setMode, score, setScore, onScoreCalculate
   setMode("winner")
   console.log(value);
   onScoreCalculated(value)
+ 
 };
   return (
     <>
@@ -102,7 +103,7 @@ export const PointSelector = ({mode , setMode, score, setScore, onScoreCalculate
             className={"p-2 bg-amber-500 border rounded-2xl px-10"}
             onClick={() => HandleScoring()}
           />
-          <h3>{trueFu(fu)}</h3>
+          
         </section>
       </main>
     </>

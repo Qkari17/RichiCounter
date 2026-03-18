@@ -20,22 +20,6 @@ export const HanBoard = () => {
           <div className="flex flex-col items-center rotate-180">
             <h1
               className={
-                playerList[3].loser
-                  ? "text-red-500"
-                  : playerList[3].winner
-                    ? "text-green-500"
-                    : ""
-              }
-            >
-              {playerList[3].name} North
-            </h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[3].points}</p>
-          </div>
-        </div>
-        <div className="  flex justify-between">
-          <div className="rotate-90 flex flex-col items-center">
-            <h1
-              className={
                 playerList[2].loser
                   ? "text-red-500"
                   : playerList[2].winner
@@ -44,6 +28,22 @@ export const HanBoard = () => {
               }
             >
               {playerList[2].name} West
+            </h1>
+            <p className={isMenu ? "" : "hidden"}>{playerList[3].points}</p>
+          </div>
+        </div>
+        <div className="  flex justify-between">
+          <div className="rotate-90 flex flex-col items-center">
+            <h1
+              className={
+                playerList[3].loser
+                  ? "text-red-500"
+                  : playerList[3].winner
+                    ? "text-green-500"
+                    : ""
+              }
+            >
+              {playerList[3].name} North
             </h1>
             <p className={isMenu ? "" : "hidden"}>{playerList[2].points}</p>
           </div>

@@ -42,9 +42,10 @@ const initialPlayers = [
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
   const [playerList, setPlayerList] = useState(initialPlayers);
+  const [dealer, setDealer] = useState(0);
 
   return (
-    <HanContext.Provider value={{ playerList, setPlayerList }}>
+    <HanContext.Provider value={{ playerList, setPlayerList, dealer, setDealer }}>
       {children}
     </HanContext.Provider>
   );

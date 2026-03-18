@@ -4,12 +4,14 @@ import { RonSelector } from "./RonSelector";
 import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
 
+
 export const TypeMenu = ({ status, seter }) => {
   const [ron, setRon] = useState(true);
   const [mode, setMode] = useState("loser");
   const [score, setScore] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
+  const [ready, setReady] = useState(false);
   const { playerList, setPlayerList } = useHan();
   const handleScoreCalculated = (score) => {
     if (pendingWinner !== null) {
@@ -21,6 +23,7 @@ export const TypeMenu = ({ status, seter }) => {
       setPendingWinner(null);
       setScore(null);
       console.log(playerList);
+      setReady(true);
     }
   };
   return (
@@ -54,11 +57,13 @@ export const TypeMenu = ({ status, seter }) => {
         </div>
       </section>
       <RonSelector
-        status={ron}
+        ron={ron}
         mode={mode}
         setMode={setMode}
         setPendingWinner={setPendingWinner}
         setLoser={setLoser}
+        ready={ready}
+        setReady={setReady}
       />
       <PointSelector
         mode={mode}

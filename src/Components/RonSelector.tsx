@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { useHan } from "../Pages/Hanchan/HanContext";
 
 export const RonSelector = ({
-  status,
+  ron,
   setMode,
   mode,
   setPendingWinner,
   setLoser,
+  ready,
+  setReady,
 }) => {
   const { playerList, setPlayerList } = useHan();
 
@@ -24,32 +25,47 @@ export const RonSelector = ({
       setMode("result");
     }
   };
-
+  const handleNext = () => {
+    setMode("richi");
+    setReady(false);
+  };
   return (
     <>
       <section
         className={
-          status
+          mode === "richi"
             ? "hidden "
-            : "bg-amber-300 absolute top-0 left-0 w-full h-full grid-cols-3 grid opacity-0"
+            : ron
+              ? "hidden"
+              : " absolute top-0 left-0 w-full h-full grid-cols-3 grid  "
         }
       >
         <button
           onClick={() => handleClick(3)}
-          className="col-span-2 bg-amber-50"
+          className=" col-start-1 row-start-2 "
         ></button>
         <button
           onClick={() => handleClick(1)}
-          className="bg-red-400 row-span-2"
+          className=" row-start-2 col-start-3"
         ></button>
         <button
           onClick={() => handleClick(2)}
-          className="bg-gray-500 row-span-2"
+          className=" col-start-2"
         ></button>
         <button
           onClick={() => handleClick(0)}
-          className="col-span-2 bg-indigo-400"
+          className="row-start-3 col-start-2 "
         ></button>
+        <button
+          className={
+            ready
+              ? "bg-red-700 opacity-100 absolute right-10 bottom-10 p-2 rounded-full "
+              : "hidden"
+          }
+          onClick={() => handleNext()}
+        >
+          XX
+        </button>
       </section>
     </>
   );
