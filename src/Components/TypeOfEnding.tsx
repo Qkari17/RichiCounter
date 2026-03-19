@@ -5,10 +5,9 @@ import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { RichiSelector } from "./RichiSelector";
 
-
-export const TypeMenu = ({ status, seter , mode , setMode}) => {
+export const TypeMenu = ({  mode, setMode }) => {
   const [ron, setRon] = useState(true);
-   const [score, setScore] = useState(null);
+  const [score, setScore] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
@@ -30,9 +29,8 @@ export const TypeMenu = ({ status, seter , mode , setMode}) => {
     <>
       <section
         className={
-          status
-            ? "hidden"
-            : ron
+       mode=== "menu"
+            
               ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col `
               : "hidden"
         }
@@ -43,6 +41,7 @@ export const TypeMenu = ({ status, seter , mode , setMode}) => {
             className={"bg-red-400"}
             onClick={() => {
               setRon((m) => !m);
+              setMode("loser");
             }}
           ></Button>
           <Button label={"Tsumo"} className={"bg-red-400"}></Button>
@@ -51,7 +50,7 @@ export const TypeMenu = ({ status, seter , mode , setMode}) => {
             label={"back"}
             className={"bg-red-400"}
             onClick={() => {
-              seter((m) => !m);
+              setMode("game")
             }}
           ></Button>
         </div>
@@ -72,7 +71,12 @@ export const TypeMenu = ({ status, seter , mode , setMode}) => {
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
       />
-      <RichiSelector mode={mode} ready={ready} setReady={setReady} setMode={setMode} />
+      <RichiSelector
+        mode={mode}
+        ready={ready}
+        setReady={setReady}
+        setMode={setMode}
+      />
     </>
   );
 };

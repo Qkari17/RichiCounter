@@ -27,17 +27,14 @@ export const RonSelector = ({
   };
   const handleNext = () => {
     setMode("richi");
-    
   };
   return (
     <>
       <section
         className={
-          mode === "richi"
-            ? "hidden "
-            : ron
-              ? "hidden"
-              : " absolute top-0 left-0 w-full h-full grid-cols-3 grid  "
+          ron
+            ? "hidden"
+            : " absolute top-0 left-0 w-full h-full grid-cols-3 grid  "
         }
       >
         <button

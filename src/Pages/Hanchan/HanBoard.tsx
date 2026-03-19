@@ -7,11 +7,11 @@ export const HanBoard = () => {
   const { playerList, setPlayerList } = useHan();
   const [round, setRound] = useState(1);
   const [honba, setHonba] = useState(0);
-  const [isMenu, setIsMenu] = useState(true);
-  const [mode, setMode] = useState("mode");
+  const [mode, setMode] = useState("game");
 
   const handleMenu = () => {
     setIsMenu((m) => !m);
+    setMode("menu");
   };
 
   return (
@@ -33,7 +33,9 @@ export const HanBoard = () => {
             >
               {playerList[2].name} West
             </h1>
-            <p className={mode === "game" ? "" : "hidden"}>{playerList[3].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>
+              {playerList[3].points}
+            </p>
           </div>
         </div>
         <div className="  flex justify-between">
@@ -52,7 +54,9 @@ export const HanBoard = () => {
             >
               {playerList[3].name} North
             </h1>
-             <p className={mode === "game" ? "" : "hidden"}>{playerList[2].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>
+              {playerList[2].points}
+            </p>
           </div>
           <div className="content-center">
             {round} {honba > 0 && `/ ${honba}`}
@@ -72,7 +76,9 @@ export const HanBoard = () => {
             >
               {playerList[1].name} South
             </h1>
-            <p className={mode === "game" ? "" : "hidden"}>{playerList[1].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>
+              {playerList[1].points}
+            </p>
           </div>
         </div>
         <div className="flex justify-center">
@@ -99,18 +105,13 @@ export const HanBoard = () => {
         <Button
           label={"X"}
           className={
-            isMenu
+            mode === "game"
               ? "absolute right-8 bottom-8 rounded-full bg-red-400 w-10 h-10"
               : "hidden"
           }
           onClick={handleMenu}
         ></Button>
-        <TypeMenu
-          status={isMenu}
-          seter={setIsMenu}
-          mode={mode}
-          setMode={setMode}
-        />
+        <TypeMenu mode={mode} setMode={setMode} />
       </main>
     </div>
   );
