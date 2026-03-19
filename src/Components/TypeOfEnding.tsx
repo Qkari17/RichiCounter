@@ -6,10 +6,9 @@ import { useHan } from "../Pages/Hanchan/HanContext";
 import { RichiSelector } from "./RichiSelector";
 
 
-export const TypeMenu = ({ status, seter }) => {
+export const TypeMenu = ({ status, seter , mode , setMode}) => {
   const [ron, setRon] = useState(true);
-  const [mode, setMode] = useState("loser");
-  const [score, setScore] = useState(null);
+   const [score, setScore] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
@@ -73,7 +72,7 @@ export const TypeMenu = ({ status, seter }) => {
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
       />
-      <RichiSelector mode={mode} ready={ready}/>
+      <RichiSelector mode={mode} ready={ready} setReady={setReady} setMode={setMode} />
     </>
   );
 };

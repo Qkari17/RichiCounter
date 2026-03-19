@@ -8,6 +8,7 @@ export const HanBoard = () => {
   const [round, setRound] = useState(1);
   const [honba, setHonba] = useState(0);
   const [isMenu, setIsMenu] = useState(true);
+  const [mode, setMode] = useState("mode");
 
   const handleMenu = () => {
     setIsMenu((m) => !m);
@@ -18,7 +19,9 @@ export const HanBoard = () => {
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl flex-col flex justify-between  overflow-hidden">
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
-                {playerList[2].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
+            {playerList[2].richi && (
+              <h1 className="absolute -top-5 text-white">richi</h1>
+            )}
             <h1
               className={
                 playerList[2].loser
@@ -30,12 +33,14 @@ export const HanBoard = () => {
             >
               {playerList[2].name} West
             </h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[3].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>{playerList[3].points}</p>
           </div>
         </div>
         <div className="  flex justify-between">
           <div className="rotate-90 flex flex-col items-center">
-                {playerList[3].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
+            {playerList[3].richi && (
+              <h1 className="absolute -top-5 text-white">richi</h1>
+            )}
             <h1
               className={
                 playerList[3].loser
@@ -47,13 +52,15 @@ export const HanBoard = () => {
             >
               {playerList[3].name} North
             </h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[2].points}</p>
+             <p className={mode === "game" ? "" : "hidden"}>{playerList[2].points}</p>
           </div>
           <div className="content-center">
             {round} {honba > 0 && `/ ${honba}`}
           </div>
           <div className="-rotate-90 flex flex-col items-center">
-                {playerList[1].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
+            {playerList[1].richi && (
+              <h1 className="absolute -top-5 text-white">richi</h1>
+            )}
             <h1
               className={
                 playerList[1].loser
@@ -65,12 +72,14 @@ export const HanBoard = () => {
             >
               {playerList[1].name} South
             </h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[1].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>{playerList[1].points}</p>
           </div>
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center relative">
-            {playerList[0].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
+            {playerList[0].richi && (
+              <h1 className="absolute -top-5 text-white">richi</h1>
+            )}
             <h1
               className={
                 playerList[0].loser
@@ -82,7 +91,9 @@ export const HanBoard = () => {
             >
               {playerList[0].name} East
             </h1>
-            <p className={isMenu ? "" : "hidden"}>{playerList[0].points}</p>
+            <p className={mode === "game" ? "" : "hidden"}>
+              {playerList[0].points}
+            </p>
           </div>
         </div>
         <Button
@@ -94,7 +105,12 @@ export const HanBoard = () => {
           }
           onClick={handleMenu}
         ></Button>
-        <TypeMenu status={isMenu} seter={setIsMenu} />
+        <TypeMenu
+          status={isMenu}
+          seter={setIsMenu}
+          mode={mode}
+          setMode={setMode}
+        />
       </main>
     </div>
   );

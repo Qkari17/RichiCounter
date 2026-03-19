@@ -27,7 +27,7 @@ export const RonSelector = ({
   };
   const handleNext = () => {
     setMode("richi");
-    setReady(false);
+    
   };
   return (
     <>
