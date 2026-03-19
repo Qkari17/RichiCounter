@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, use, useContext, useState } from "react";
 
 const initialPlayers = [
   {
@@ -6,7 +6,7 @@ const initialPlayers = [
     wind: "East",
     points: 0,
     chombo: 0,
-    delear: true,
+    dealer: true,
     winner: false,
     loser: false,
     richi: false,
@@ -16,7 +16,7 @@ const initialPlayers = [
     wind: "South",
     points: 0,
     chombo: 0,
-    delear: false,
+    dealer: false,
     winner: false,
     loser: false,
     richi: false,
@@ -26,7 +26,7 @@ const initialPlayers = [
     wind: "West",
     points: 0,
     chombo: 0,
-    delear: false,
+    dealer: false,
     winner: false,
     loser: false,
     richi: false,
@@ -36,7 +36,7 @@ const initialPlayers = [
     wind: "North",
     points: 0,
     chombo: 0,
-    delear: false,
+    dealer: false,
     winner: false,
     loser: false,
     richi: false,
@@ -47,10 +47,23 @@ const HanContext = createContext();
 export const HanProvider = ({ children }) => {
   const [playerList, setPlayerList] = useState(initialPlayers);
   const [dealer, setDealer] = useState(0);
-
+  const [round, setRound] = useState(0);
+  const [honba, setHonba] = useState(0);
+  const [wind, setWind] = useState("East");
   return (
     <HanContext.Provider
-      value={{ playerList, setPlayerList, dealer, setDealer }}
+      value={{
+        playerList,
+        setPlayerList,
+        dealer,
+        setDealer,
+        round,
+        setRound,
+        honba,
+        setHonba,
+        wind,
+        setWind,
+      }}
     >
       {children}
     </HanContext.Provider>

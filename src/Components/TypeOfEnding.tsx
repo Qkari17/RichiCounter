@@ -5,7 +5,7 @@ import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { RichiSelector } from "./RichiSelector";
 
-export const TypeMenu = ({  mode, setMode }) => {
+export const TypeMenu = ({ mode, setMode }) => {
   const [ron, setRon] = useState(true);
   const [score, setScore] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
@@ -29,10 +29,9 @@ export const TypeMenu = ({  mode, setMode }) => {
     <>
       <section
         className={
-       mode=== "menu"
-            
-              ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col `
-              : "hidden"
+          mode === "menu"
+            ? `absolute top-0 left-0 flex w-full h-full justify-center items-center flex-col `
+            : "hidden"
         }
       >
         <div className="bg-blue-400 w-1/2 h-1/2 rounded-2xl flex flex-col justify-around p-10">
@@ -50,7 +49,7 @@ export const TypeMenu = ({  mode, setMode }) => {
             label={"back"}
             className={"bg-red-400"}
             onClick={() => {
-              setMode("game")
+              setMode("game");
             }}
           ></Button>
         </div>
@@ -76,6 +75,7 @@ export const TypeMenu = ({  mode, setMode }) => {
         ready={ready}
         setReady={setReady}
         setMode={setMode}
+        setRon={setRon}
       />
     </>
   );

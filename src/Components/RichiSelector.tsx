@@ -1,7 +1,8 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const RichiSelector = ({ mode, ready, setMode, setReady }) => {
-  const { playerList, setPlayerList } = useHan();
+export const RichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
+  const { playerList, setPlayerList, setRound, round, wind, setWind } =
+    useHan();
   const handleClick = (i) => {
     const newPlayerList = playerList.slice();
     newPlayerList[i].richi = !newPlayerList[i].richi;
@@ -12,7 +13,7 @@ export const RichiSelector = ({ mode, ready, setMode, setReady }) => {
     const winnerCount = playerList.filter((i) => i.winner).length;
     const richiCount = playerList.filter((i) => i.richi).length;
     const richiTotal = richiCount * 1000;
-    console.log(richiTotal);
+    setReady(false);
     const richiDeductor = playerList.map((i) => {
       if (i.richi) {
         return { ...i, points: i.points - 1000 };
@@ -26,10 +27,26 @@ export const RichiSelector = ({ mode, ready, setMode, setReady }) => {
       }
       return i;
     });
-    setPlayerList(richiScore);
-    console.log(richiScore);
-    setReady(false);
-    setMode("game");
+    const resetPlayerList = richiScore.map((i) => {
+      return { ...i, dealer: false, winner: false, loser: false, richi: false };
+    });
+    resetPlayerList[(round + 1) % 4].dealer = true;
+    setPlayerList(resetPlayerList);
+    setRon(true);
+    if (round === 3) {
+      setRound(0);
+      setWind("South");
+    } else {
+      setRound((prev) => prev + 1);
+    }
+
+    console.log(round);
+    if (round === 3 && wind === "South") {
+      setMode("end");
+    } else {
+      setMode("game");
+    }
+    console.log(mode)
   };
 
   return (

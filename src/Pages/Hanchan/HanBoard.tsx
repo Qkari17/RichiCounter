@@ -4,13 +4,10 @@ import { Button } from "../../ui/Button/Button";
 import { TypeMenu } from "../../Components/TypeOfEnding";
 
 export const HanBoard = () => {
-  const { playerList, setPlayerList } = useHan();
-  const [round, setRound] = useState(1);
-  const [honba, setHonba] = useState(0);
+  const { playerList, setPlayerList, honba, round } = useHan();
   const [mode, setMode] = useState("game");
-
+  const viewRound = round + 1;
   const handleMenu = () => {
-    setIsMenu((m) => !m);
     setMode("menu");
   };
 
@@ -59,7 +56,7 @@ export const HanBoard = () => {
             </p>
           </div>
           <div className="content-center">
-            {round} {honba > 0 && `/ ${honba}`}
+            {viewRound} {honba > 0 && `/ ${honba}`}
           </div>
           <div className="-rotate-90 flex flex-col items-center">
             {playerList[1].richi && (
