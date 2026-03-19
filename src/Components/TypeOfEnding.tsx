@@ -3,6 +3,7 @@ import { Button } from "../ui/Button/Button";
 import { RonSelector } from "./RonSelector";
 import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
+import { RichiSelector } from "./RichiSelector";
 
 
 export const TypeMenu = ({ status, seter }) => {
@@ -72,6 +73,7 @@ export const TypeMenu = ({ status, seter }) => {
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
       />
+      <RichiSelector mode={mode}/>
     </>
   );
 };
