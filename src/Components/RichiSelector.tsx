@@ -1,10 +1,12 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-  const { playerList, setPlayerList } = useHan();
+
 export const RichiSelector = ({ mode, ready }) => {
+  
+  const { playerList, setPlayerList } = useHan();
   const handleClick = (i) => {
-    const newPlayerList = playerList.slice;
-   newPlayerList[i].loser= !newPlayerList[i].loser
+    const newPlayerList = playerList.slice();
+   newPlayerList[i].richi= !newPlayerList[i].richi
   setPlayerList(newPlayerList)}
 
   const handleNext = () => {
@@ -21,7 +23,7 @@ export const RichiSelector = ({ mode, ready }) => {
     >
       <button
         onClick={() => handleClick(3)}
-        className="col-start-1 row-start-2 bg-amber-700"
+        className="col-start-1 row-start-2 "
       />
       <button
         onClick={() => handleClick(1)}

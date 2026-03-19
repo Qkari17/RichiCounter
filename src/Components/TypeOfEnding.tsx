@@ -73,7 +73,7 @@ export const TypeMenu = ({ status, seter }) => {
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
       />
-      <RichiSelector mode={mode}/>
+      <RichiSelector mode={mode} ready={ready}/>
     </>
   );
 };

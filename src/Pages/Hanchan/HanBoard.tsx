@@ -18,6 +18,7 @@ export const HanBoard = () => {
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl flex-col flex justify-between  overflow-hidden">
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
+                {playerList[2].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
             <h1
               className={
                 playerList[2].loser
@@ -34,6 +35,7 @@ export const HanBoard = () => {
         </div>
         <div className="  flex justify-between">
           <div className="rotate-90 flex flex-col items-center">
+                {playerList[3].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
             <h1
               className={
                 playerList[3].loser
@@ -51,6 +53,7 @@ export const HanBoard = () => {
             {round} {honba > 0 && `/ ${honba}`}
           </div>
           <div className="-rotate-90 flex flex-col items-center">
+                {playerList[1].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
             <h1
               className={
                 playerList[1].loser
@@ -66,7 +69,8 @@ export const HanBoard = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center relative">
+            {playerList[0].richi && <h1 className="absolute -top-5 text-white">richi</h1>}
             <h1
               className={
                 playerList[0].loser
