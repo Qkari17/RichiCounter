@@ -70,6 +70,7 @@ export const TypeMenu = ({ mode, setMode }) => {
         score={score}
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
+        pendingWinner={pendingWinner}
       />
       <RiichiSelector
         mode={mode}
