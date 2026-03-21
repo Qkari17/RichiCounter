@@ -16,7 +16,7 @@ export const HanBoard = () => {
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl flex-col flex justify-between  overflow-hidden">
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
-            {playerList[2].richi && (
+            {playerList[2].riichi && (
               <h1 className="absolute -top-5 text-white">richi</h1>
             )}
             <h1
@@ -31,13 +31,13 @@ export const HanBoard = () => {
               {playerList[2].name} West
             </h1>
             <p className={mode === "game" ? "" : "hidden"}>
-              {playerList[3].points}
+              {playerList[2].points}
             </p>
           </div>
         </div>
         <div className="  flex justify-between">
           <div className="rotate-90 flex flex-col items-center">
-            {playerList[3].richi && (
+            {playerList[3].riichi && (
               <h1 className="absolute -top-5 text-white">richi</h1>
             )}
             <h1
@@ -52,14 +52,14 @@ export const HanBoard = () => {
               {playerList[3].name} North
             </h1>
             <p className={mode === "game" ? "" : "hidden"}>
-              {playerList[2].points}
+              {playerList[3].points}
             </p>
           </div>
           <div className="content-center">
             {viewRound} {honba > 0 && `/ ${honba}`}
           </div>
           <div className="-rotate-90 flex flex-col items-center">
-            {playerList[1].richi && (
+            {playerList[1].riichi && (
               <h1 className="absolute -top-5 text-white">richi</h1>
             )}
             <h1
@@ -80,7 +80,7 @@ export const HanBoard = () => {
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center relative">
-            {playerList[0].richi && (
+            {playerList[0].riichi && (
               <h1 className="absolute -top-5 text-white">richi</h1>
             )}
             <h1

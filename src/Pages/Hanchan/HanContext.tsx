@@ -1,4 +1,4 @@
-import { createContext, use, useContext, useState } from "react";
+import { createContext,  useContext, useState } from "react";
 
 const initialPlayers = [
   {
@@ -9,7 +9,7 @@ const initialPlayers = [
     dealer: true,
     winner: false,
     loser: false,
-    richi: false,
+    riichi: false,
   },
   {
     name: "",
@@ -19,7 +19,7 @@ const initialPlayers = [
     dealer: false,
     winner: false,
     loser: false,
-    richi: false,
+    riichi: false,
   },
   {
     name: "",
@@ -29,7 +29,7 @@ const initialPlayers = [
     dealer: false,
     winner: false,
     loser: false,
-    richi: false,
+    riichi: false,
   },
   {
     name: "",
@@ -39,7 +39,7 @@ const initialPlayers = [
     dealer: false,
     winner: false,
     loser: false,
-    richi: false,
+    riichi: false,
   },
 ];
 

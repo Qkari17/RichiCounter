@@ -1,6 +1,6 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const RichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
+export const RiichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
   const {
     playerList,
     setPlayerList,
@@ -12,39 +12,57 @@ export const RichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
   } = useHan();
   const handleClick = (i) => {
     const newPlayerList = playerList.slice();
-    newPlayerList[i].richi = !newPlayerList[i].richi;
+    newPlayerList[i].riichi = !newPlayerList[i].riichi;
     setPlayerList(newPlayerList);
   };
 
   const handleEnd = () => {
     const winnerCount = playerList.filter((i) => i.winner).length;
-    const richiCount = playerList.filter((i) => i.richi).length;
+    const riichiCount = playerList.filter((i) => i.riichi).length;
     const isHonba = playerList.some((i) => i.winner && i.dealer);
-    const richiTotal = richiCount * 1000;
+    const riichiTotal = riichiCount * 1000;
     setReady(false);
     const richiDeductor = playerList.map((i) => {
-      if (i.richi) {
+      if (i.riichi) {
         return { ...i, points: i.points - 1000 };
       }
       return i;
     });
 
-    const richiScore = richiDeductor.map((i) => {
+    const riichiScore = richiDeductor.map((i) => {
       if (i.winner) {
-        return { ...i, points: i.points + richiTotal / winnerCount };
+        return { ...i, points: i.points + riichiTotal / winnerCount };
       }
       return i;
     });
-    const resetPlayerList = richiScore.map((i) => {
-      return { ...i, dealer: false, winner: false, loser: false, richi: false };
+    const resetPlayerList = riichiScore.map((i) => {
+      return {
+        ...i,
+        winner: false,
+        loser: false,
+        riichi: false,
+      };
     });
-    resetPlayerList[(round + 1) % 4].dealer = true;
-    setPlayerList(resetPlayerList);
+
     setRon(true);
     if (isHonba) {
       setHonba((prev) => prev + 1);
       setMode("game");
+      setPlayerList(resetPlayerList);
     } else {
+      const resetDealer = resetPlayerList.map((i) => {
+        return {
+          ...i,
+          dealer: false,
+        };
+      });
+      const updatedPlayers = resetDealer.map((i, idx) => ({
+        ...i,
+        dealer: idx === (round + 1) % 4,
+      }));
+
+      setPlayerList(updatedPlayers);
+      setHonba(0);
       if (round === 3) {
         setRound(0);
         setWind("South");
@@ -58,14 +76,16 @@ export const RichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
       } else {
         setMode("game");
       }
-      console.log(isHonba);
     }
+
+    console.log(isHonba);
+    console.log(playerList);
   };
 
   return (
     <section
       className={
-        mode === "richi"
+        mode === "riichi"
           ? "absolute top-0 left-0 w-full h-full grid grid-cols-3"
           : "hidden"
       }
