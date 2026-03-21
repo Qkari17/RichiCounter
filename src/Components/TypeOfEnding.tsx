@@ -11,13 +11,14 @@ export const TypeMenu = ({ mode, setMode }) => {
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
-  const { playerList, setPlayerList } = useHan();
+  const { playerList, setPlayerList, honbaScore } = useHan();
   const handleScoreCalculated = (score) => {
     if (pendingWinner !== null) {
       const newList = [...playerList];
       newList[pendingWinner].winner = true;
-      newList[pendingWinner].points = newList[pendingWinner].points + score;
-      newList[loser].points = newList[loser].points - score;
+      newList[pendingWinner].points =
+        newList[pendingWinner].points + score + honbaScore;
+      newList[loser].points = newList[loser].points - score - honbaScore;
       setPlayerList(newList);
       setPendingWinner(null);
       setScore(null);

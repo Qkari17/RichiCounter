@@ -50,6 +50,8 @@ export const HanProvider = ({ children }) => {
   const [round, setRound] = useState(0);
   const [honba, setHonba] = useState(0);
   const [wind, setWind] = useState("East");
+
+  const honbaScore = honba * 300
   return (
     <HanContext.Provider
       value={{
@@ -63,6 +65,7 @@ export const HanProvider = ({ children }) => {
         setHonba,
         wind,
         setWind,
+        honbaScore
       }}
     >
       {children}
