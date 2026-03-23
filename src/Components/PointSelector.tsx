@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button } from "../ui/Button/Button";
 import { useHan } from "../Pages/Hanchan/HanContext";
-import { ronDealer, ronNon } from "./ScoringSheet";
+import {
+  ronDealer,
+  ronNon,
+  tsumoDealer,
+  tsumoOnDealer,
+  tsumoOnNon,
+} from "./ScoringSheet";
 
 export const PointSelector = ({
   mode,
@@ -9,7 +15,10 @@ export const PointSelector = ({
   score,
   setScore,
   onScoreCalculated,
-  pendingWinner,setReady
+  pendingWinner,
+  setReady,
+  ron,
+  tsumo,setScoreDealer
 }) => {
   const [han, setHan] = useState(1);
   const [fu, setFu] = useState(30);
@@ -52,43 +61,82 @@ export const PointSelector = ({
   };
   const HandleScoring = () => {
     let value;
+    let dealerValue;
     const dealerWinning = playerList[pendingWinner].dealer;
-    if (ron)(dealerWinning) {
-      if (han >= 13) {
-        value = 48000;
-      } else if (han >= 11) {
-        value = 36000;
-      } else if (han >= 8) {
-        value = 24000;
-      } else if (han >= 6) {
-        value = 18000;
-      } else if (han === 5) {
-        value = 12000;
+    if (ron) {
+      if (dealerWinning) {
+        if (han >= 13) {
+          value = 48000;
+        } else if (han >= 11) {
+          value = 36000;
+        } else if (han >= 8) {
+          value = 24000;
+        } else if (han >= 6) {
+          value = 18000;
+        } else if (han === 5) {
+          value = 12000;
+        } else {
+          value = ronDealer[trueHan][trueFu(fu)];
+        }
       } else {
-        value = ronDealer[trueHan][trueFu(fu)];
+        if (han >= 13) {
+          value = 32000;
+        } else if (han >= 11) {
+          value = 24000;
+        } else if (han >= 8) {
+          value = 16000;
+        } else if (han >= 6) {
+          value = 12000;
+        } else if (han === 5) {
+          value = 8000;
+        } else {
+          value = ronNon[trueHan][trueFu(fu)];
+        }
       }
-    } else {
-      if (han >= 13) {
-        value = 32000;
-      } else if (han >= 11) {
-        value = 24000;
-      } else if (han >= 8) {
-        value = 16000;
-      } else if (han >= 6) {
-        value = 12000;
-      } else if (han === 5) {
-        value = 8000;
+    } else if (tsumo) {
+      if (dealerWinning) {
+        if (han >= 13) {
+          value = 16000;
+        } else if (han >= 11) {
+          value = 12000;
+        } else if (han >= 8) {
+          value = 8000;
+        } else if (han >= 6) {
+          value = 6000;
+        } else if (han === 5) {
+          value = 4000;
+        } else {
+          value = tsumoDealer[trueHan][trueFu(fu)];
+        }
       } else {
-        value = ronNon[trueHan][trueFu(fu)];
+        if (han >= 13) {
+          value = 8000;
+          dealerValue = 16000;
+        } else if (han >= 11) {
+          value = 6000;
+          dealerValue = 12000;
+        } else if (han >= 8) {
+          value = 4000;
+          dealerValue = 8000;
+        } else if (han >= 6) {
+          value = 3000;
+          dealerValue = 6000;
+        } else if (han === 5) {
+          value = 2000;
+          dealerValue = 4000;
+        } else {
+          value = tsumoOnNon[trueHan][trueFu(fu)];
+          dealerValue = tsumoOnDealer[trueHan][trueFu(fu)];
+        }
       }
     }
     setScore(value);
+    setScoreDealer(dealerValue)
     setMode("winner");
     setFu(30);
     setHan(1);
     console.log(dealerWinning);
     onScoreCalculated(value);
-   
   };
   return (
     <>

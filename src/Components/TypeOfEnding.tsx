@@ -10,23 +10,22 @@ export const TypeMenu = ({ mode, setMode }) => {
   const [ron, setRon] = useState(false);
   const [tsumo, setTsumo] = useState(false);
   const [score, setScore] = useState(null);
+  const [scoreDealer, setScoreDealer] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
   const { playerList, setPlayerList, honbaScore } = useHan();
   const handleScoreCalculated = (score) => {
-
-      const newList = [...playerList];
-      newList[pendingWinner].winner = true;
-      newList[pendingWinner].points =
-        newList[pendingWinner].points + score + honbaScore;
-      newList[loser].points = newList[loser].points - score - honbaScore;
-      setPlayerList(newList);
-      setPendingWinner(null);
-      setScore(null);
-      console.log(playerList);
-      setReady(true);
-  
+    const newList = [...playerList];
+    newList[pendingWinner].winner = true;
+    newList[pendingWinner].points =
+      newList[pendingWinner].points + score + honbaScore;
+    newList[loser].points = newList[loser].points - score - honbaScore;
+    setPlayerList(newList);
+    setPendingWinner(null);
+    setScore(null);
+    console.log(playerList);
+    setReady(true);
   };
   return (
     <>
@@ -92,6 +91,8 @@ export const TypeMenu = ({ mode, setMode }) => {
         pendingWinner={pendingWinner}
         setReady={setReady}
         ron={ron}
+        tsumo={tsumo}
+        setScoreDealer={setScoreDealer}
       />
       <RiichiSelector
         mode={mode}
