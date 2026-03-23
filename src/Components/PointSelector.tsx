@@ -9,7 +9,7 @@ export const PointSelector = ({
   score,
   setScore,
   onScoreCalculated,
-  pendingWinner,
+  pendingWinner,setReady
 }) => {
   const [han, setHan] = useState(1);
   const [fu, setFu] = useState(30);
@@ -53,7 +53,7 @@ export const PointSelector = ({
   const HandleScoring = () => {
     let value;
     const dealerWinning = playerList[pendingWinner].dealer;
-    if (dealerWinning) {
+    if (ron)(dealerWinning) {
       if (han >= 13) {
         value = 48000;
       } else if (han >= 11) {
@@ -84,8 +84,11 @@ export const PointSelector = ({
     }
     setScore(value);
     setMode("winner");
+    setFu(30);
+    setHan(1);
     console.log(dealerWinning);
     onScoreCalculated(value);
+   
   };
   return (
     <>

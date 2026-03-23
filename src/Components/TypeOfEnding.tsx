@@ -4,16 +4,18 @@ import { RonSelector } from "./RonSelector";
 import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { RiichiSelector } from "./RiichiSelector";
+import { TsumoSelector } from "./TsumoSelector";
 
 export const TypeMenu = ({ mode, setMode }) => {
-  const [ron, setRon] = useState(true);
+  const [ron, setRon] = useState(false);
+  const [tsumo, setTsumo] = useState(false);
   const [score, setScore] = useState(null);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
   const { playerList, setPlayerList, honbaScore } = useHan();
   const handleScoreCalculated = (score) => {
-    if (pendingWinner !== null) {
+
       const newList = [...playerList];
       newList[pendingWinner].winner = true;
       newList[pendingWinner].points =
@@ -24,7 +26,7 @@ export const TypeMenu = ({ mode, setMode }) => {
       setScore(null);
       console.log(playerList);
       setReady(true);
-    }
+  
   };
   return (
     <>
@@ -44,7 +46,14 @@ export const TypeMenu = ({ mode, setMode }) => {
               setMode("loser");
             }}
           ></Button>
-          <Button label={"Tsumo"} className={"bg-red-400"}></Button>
+          <Button
+            label={"Tsumo"}
+            className={"bg-red-400"}
+            onClick={() => {
+              setTsumo((m) => !m);
+              setMode("winner");
+            }}
+          ></Button>
           <Button label={"Tie"} className={"bg-red-400"}></Button>
           <Button
             label={"back"}
@@ -64,6 +73,16 @@ export const TypeMenu = ({ mode, setMode }) => {
         ready={ready}
         setReady={setReady}
       />
+      <TsumoSelector
+        tsumo={tsumo}
+        mode={mode}
+        setMode={setMode}
+        setPendingWinner={setPendingWinner}
+        setLoser={setLoser}
+        ready={ready}
+        setReady={setReady}
+        pendingWinner={pendingWinner}
+      />
       <PointSelector
         mode={mode}
         setMode={setMode}
@@ -71,6 +90,8 @@ export const TypeMenu = ({ mode, setMode }) => {
         setScore={setScore}
         onScoreCalculated={handleScoreCalculated}
         pendingWinner={pendingWinner}
+        setReady={setReady}
+        ron={ron}
       />
       <RiichiSelector
         mode={mode}
@@ -78,6 +99,7 @@ export const TypeMenu = ({ mode, setMode }) => {
         setReady={setReady}
         setMode={setMode}
         setRon={setRon}
+        setTsumo={setTsumo}
       />
     </>
   );

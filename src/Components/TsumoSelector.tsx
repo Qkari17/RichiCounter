@@ -1,29 +1,22 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const RonSelector = ({
-  ron,
+export const TsumoSelector = ({
   setMode,
   mode,
   setPendingWinner,
   setLoser,
   ready,
   setReady,
+  pendingWinner,
+  tsumo,
 }) => {
   const { playerList, setPlayerList } = useHan();
 
   const handleClick = (i) => {
-    const newPlayerList = playerList.slice();
-    if (playerList[i].loser === true || playerList[i].winner === true) {
-      return;
-    } else if (mode === "loser") {
-      newPlayerList[i].loser = true;
-      setPlayerList(newPlayerList);
-      setLoser(i);
-      setMode("winner");
-    } else {
-      setPendingWinner(i);
-      setMode("result");
-    }
+    if (pendingWinner !== null) return;
+
+        setPendingWinner(i);
+    setMode("result");
   };
   const handleNext = () => {
     setMode("riichi");
@@ -32,9 +25,9 @@ export const RonSelector = ({
     <>
       <section
         className={
-          ron
-            ?  " absolute top-0 left-0 w-full h-full grid-cols-3 grid  "
-            :"hidden"
+          tsumo
+            ? " absolute top-0 left-0 w-full h-full grid-cols-3 grid  "
+            : "hidden"
         }
       >
         <button

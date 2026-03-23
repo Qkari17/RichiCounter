@@ -1,6 +1,6 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const RiichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
+export const RiichiSelector = ({ mode, ready, setMode, setReady, setRon, setTsumo }) => {
   const {
     playerList,
     setPlayerList,
@@ -43,8 +43,8 @@ export const RiichiSelector = ({ mode, ready, setMode, setReady, setRon }) => {
         riichi: false,
       };
     });
-
-    setRon(true);
+setTsumo(false)
+    setRon(false);
     if (isHonba) {
       setHonba((prev) => prev + 1);
       setMode("game");
