@@ -13,10 +13,14 @@ export const TsumoSelector = ({
   const { playerList, setPlayerList } = useHan();
 
   const handleClick = (i) => {
-    if (pendingWinner !== null) return;
+    if (ready) return;
+    const winnerMaker = playerList.map((player, index) =>
+      index === i ? { ...player, winner: true } : player,
+    );
 
-        setPendingWinner(i);
+    setPendingWinner(i);
     setMode("result");
+    setPlayerList(winnerMaker);
   };
   const handleNext = () => {
     setMode("riichi");

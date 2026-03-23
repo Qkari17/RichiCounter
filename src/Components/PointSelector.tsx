@@ -130,13 +130,14 @@ export const PointSelector = ({
         }
       }
     }
+    
     setScore(value);
     setScoreDealer(dealerValue)
     setMode("winner");
     setFu(30);
     setHan(1);
-    console.log(dealerWinning);
-    onScoreCalculated(value);
+    console.log(dealerValue);
+    onScoreCalculated(value,dealerValue);
   };
   return (
     <>

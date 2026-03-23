@@ -9,22 +9,79 @@ import { TsumoSelector } from "./TsumoSelector";
 export const TypeMenu = ({ mode, setMode }) => {
   const [ron, setRon] = useState(false);
   const [tsumo, setTsumo] = useState(false);
-  const [score, setScore] = useState(null);
-  const [scoreDealer, setScoreDealer] = useState(null);
+  const [score, setScore] = useState(0);
+  const [scoreDealer, setScoreDealer] = useState(0);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
   const { playerList, setPlayerList, honbaScore } = useHan();
-  const handleScoreCalculated = (score) => {
-    const newList = [...playerList];
-    newList[pendingWinner].winner = true;
-    newList[pendingWinner].points =
-      newList[pendingWinner].points + score + honbaScore;
-    newList[loser].points = newList[loser].points - score - honbaScore;
-    setPlayerList(newList);
+  const handleScoreCalculated = (score, scoreDealer) => {
+    const isDealerWinning = playerList[pendingWinner].dealer;
+    const trueScore = score * 2 + scoreDealer;
+    if (ron) {
+      setPlayerList((prev) =>
+        prev.map((player, index) => {
+          if (index === pendingWinner) {
+            return {
+              ...player,
+              winner: true,
+              points: player.points + score + honbaScore,
+            };
+          }
+          if (index === loser) {
+            return {
+              ...player,
+              points: player.points - score - honbaScore,
+            };
+          }
+          return player;
+        }),
+      );
+    } else if (tsumo) {
+      if (isDealerWinning) {
+        setPlayerList((prev) =>
+          prev.map((player, index) => {
+            if (index === pendingWinner) {
+              return {
+                ...player,
+                winner: true,
+                points: player.points + score * 3 + honbaScore,
+              };
+            }
+            return {
+              ...player,
+              points: player.points - score - honbaScore,
+            };
+          }),
+        );
+      } else {
+        setPlayerList((prev) =>
+          prev.map((player, index) => {
+            if (index === pendingWinner) {
+              return {
+                ...player,
+                winner: true,
+                points: player.points + trueScore + honbaScore,
+              };
+            }
+            if (player.dealer) {
+              return {
+                ...player,
+                points: player.points - scoreDealer - honbaScore,
+              };
+            }
+            return {
+              ...player,
+              points: player.points - score - honbaScore,
+            };
+          }),
+        );
+      }
+    }
+    console.log(trueScore);
+    setScoreDealer(0);
     setPendingWinner(null);
-    setScore(null);
-    console.log(playerList);
+    setScore(0);
     setReady(true);
   };
   return (
