@@ -1,11 +1,6 @@
 import { useHan } from "../Pages/Hanchan/HanContext";
 
-export const TieSelector = ({
-  setMode,
-  ready,
-  setReady,
-  tie,
-}) => {
+export const TieSelector = ({ setMode, ready, setReady, tie }) => {
   const { playerList, setPlayerList } = useHan();
 
   const handleClick = (i) => {
@@ -19,30 +14,33 @@ export const TieSelector = ({
   };
 
   const handleNext = () => {
-        const loserCount = playerList.filter((i) => i.winner===false).length;
- setPlayerList((prev) =>
-          prev.map((player) => {
-                       if (player.winner) {
-              return {
-                ...player,
-                points: player.points + 3000/(4-loserCount),
-              };
-            }
+    const loserCount = playerList.filter((i) => i.winner === false).length;
+    if (loserCount === 0) {
+      setMode("riichi");
+      return;
+    } else {
+      setPlayerList((prev) =>
+        prev.map((player) => {
+          if (player.winner) {
             return {
               ...player,
-              points: player.points - 3000/loserCount,
+              points: player.points + 3000 / (4 - loserCount),
             };
-          }),
-        );
-    setMode("riichi");
+          }
+          return {
+            ...player,
+            points: player.points - 3000 / loserCount,
+          };
+        }),
+      );
+      setMode("riichi");
+    }
   };
 
   return (
     <section
       className={
-        tie
-          ? "absolute top-0 left-0 w-full h-full grid-cols-3 grid"
-          : "hidden"
+        tie ? "absolute top-0 left-0 w-full h-full grid-cols-3 grid" : "hidden"
       }
     >
       <button
@@ -55,10 +53,7 @@ export const TieSelector = ({
         className="row-start-2 col-start-3"
       ></button>
 
-      <button
-        onClick={() => handleClick(2)}
-        className="col-start-2"
-      ></button>
+      <button onClick={() => handleClick(2)} className="col-start-2"></button>
 
       <button
         onClick={() => handleClick(0)}

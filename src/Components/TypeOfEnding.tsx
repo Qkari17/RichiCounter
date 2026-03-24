@@ -66,17 +66,16 @@ export const TypeMenu = ({ mode, setMode }) => {
                 winner: true,
                 points: player.points + trueScore + honbaScore,
               };
-            }
-            else if (player.dealer) {
+            } else if (player.dealer) {
               return {
                 ...player,
                 points: player.points - scoreDealer - honbaScore,
               };
             } else
-            return {
-              ...player,
-              points: player.points - score - honbaScore,
-            };
+              return {
+                ...player,
+                points: player.points - score - honbaScore,
+              };
           }),
         );
       }
@@ -174,6 +173,8 @@ export const TypeMenu = ({ mode, setMode }) => {
         setMode={setMode}
         setRon={setRon}
         setTsumo={setTsumo}
+        setTie={setTie}
+        tie={tie}
       />
     </>
   );
