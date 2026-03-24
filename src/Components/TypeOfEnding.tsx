@@ -5,10 +5,13 @@ import { PointSelector } from "./PointSelector";
 import { useHan } from "../Pages/Hanchan/HanContext";
 import { RiichiSelector } from "./RiichiSelector";
 import { TsumoSelector } from "./TsumoSelector";
+import { TieSelector } from "./TieSelector";
 
 export const TypeMenu = ({ mode, setMode }) => {
   const [ron, setRon] = useState(false);
   const [tsumo, setTsumo] = useState(false);
+  const [tie, setTie] = useState(false);
+
   const [score, setScore] = useState(0);
   const [scoreDealer, setScoreDealer] = useState(0);
   const [pendingWinner, setPendingWinner] = useState(null);
@@ -110,7 +113,14 @@ export const TypeMenu = ({ mode, setMode }) => {
               setMode("winner");
             }}
           ></Button>
-          <Button label={"Tie"} className={"bg-red-400"}></Button>
+          <Button
+            label={"Tie"}
+            className={"bg-red-400"}
+            onClick={() => {
+              setTie((m) => !m);
+              setMode("winner");
+            }}
+          ></Button>
           <Button
             label={"back"}
             className={"bg-red-400"}
@@ -138,6 +148,12 @@ export const TypeMenu = ({ mode, setMode }) => {
         ready={ready}
         setReady={setReady}
         pendingWinner={pendingWinner}
+      />
+      <TieSelector
+        tie={tie}
+        setMode={setMode}
+        ready={ready}
+        setReady={setReady}
       />
       <PointSelector
         mode={mode}
