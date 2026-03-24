@@ -19,7 +19,21 @@ export const TieSelector = ({
   };
 
   const handleNext = () => {
-    
+        const loserCount = playerList.filter((i) => i.winner===false).length;
+ setPlayerList((prev) =>
+          prev.map((player) => {
+                       if (player.winner) {
+              return {
+                ...player,
+                points: player.points + 3000/(4-loserCount),
+              };
+            }
+            return {
+              ...player,
+              points: player.points - 3000/loserCount,
+            };
+          }),
+        );
     setMode("riichi");
   };
 

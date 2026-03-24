@@ -67,12 +67,12 @@ export const TypeMenu = ({ mode, setMode }) => {
                 points: player.points + trueScore + honbaScore,
               };
             }
-            if (player.dealer) {
+            else if (player.dealer) {
               return {
                 ...player,
                 points: player.points - scoreDealer - honbaScore,
               };
-            }
+            } else
             return {
               ...player,
               points: player.points - score - honbaScore,
