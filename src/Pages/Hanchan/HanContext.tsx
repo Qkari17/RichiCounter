@@ -1,4 +1,4 @@
-import { createContext,  useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const initialPlayers = [
   {
@@ -50,8 +50,8 @@ export const HanProvider = ({ children }) => {
   const [round, setRound] = useState(0);
   const [honba, setHonba] = useState(0);
   const [wind, setWind] = useState("East");
-
-  const honbaScore = honba * 300
+  const [tie, setTie] = useState(false);
+  const honbaScore = honba * 300;
   return (
     <HanContext.Provider
       value={{
@@ -65,7 +65,7 @@ export const HanProvider = ({ children }) => {
         setHonba,
         wind,
         setWind,
-        honbaScore
+        honbaScore,tie,setTie
       }}
     >
       {children}

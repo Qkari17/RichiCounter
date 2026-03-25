@@ -10,14 +10,14 @@ import { TieSelector } from "./TieSelector";
 export const TypeMenu = ({ mode, setMode }) => {
   const [ron, setRon] = useState(false);
   const [tsumo, setTsumo] = useState(false);
-  const [tie, setTie] = useState(false);
+ 
 
   const [score, setScore] = useState(0);
   const [scoreDealer, setScoreDealer] = useState(0);
   const [pendingWinner, setPendingWinner] = useState(null);
   const [loser, setLoser] = useState(null);
   const [ready, setReady] = useState(false);
-  const { playerList, setPlayerList, honbaScore } = useHan();
+  const { playerList, setPlayerList, honbaScore,tie,setTie } = useHan();
   const handleScoreCalculated = (score, scoreDealer) => {
     const isDealerWinning = playerList[pendingWinner].dealer;
     const trueScore = score * 2 + scoreDealer;

@@ -4,7 +4,7 @@ import { Button } from "../../ui/Button/Button";
 import { TypeMenu } from "../../Components/TypeOfEnding";
 
 export const HanBoard = () => {
-  const { playerList, setPlayerList, honba, round } = useHan();
+  const { playerList, setPlayerList, honba, round, tie } = useHan();
   const [mode, setMode] = useState("game");
   const viewRound = round + 1;
   const handleMenu = () => {
@@ -14,6 +14,19 @@ export const HanBoard = () => {
   return (
     <div className="bg-yellow-300 flex-col flex h-screen w-screen gap-5 p-4">
       <main className="flex-1 p-4 bg-blue-600 rounded-2xl flex-col flex justify-between  overflow-hidden">
+        <div className="fixed inset-0 flex justify-center items-center -top-20 text-white">
+          {mode === "loser" ? (
+            <h1 className=" ">Who lost?</h1>
+          ) : mode === "winner" && tie ? (
+            <h1>Who was in tenpai?</h1>
+          ) : mode === "riichi" ? (
+            <h1>Who had riichi?</h1>
+          ) : mode === "winner" ? (
+            <h1>Who won?</h1>
+          ) : (
+            <h1></h1>
+          )}
+        </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
             {playerList[2].riichi && (
