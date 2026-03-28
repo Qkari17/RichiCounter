@@ -2,9 +2,10 @@ import { createContext, useContext, useState } from "react";
 
 const initialPlayers = [
   {
+    id: 1,
     name: "",
     wind: "East",
-    points: 0,
+    points: 1,
     chombo: 0,
     dealer: true,
     winner: false,
@@ -12,9 +13,10 @@ const initialPlayers = [
     riichi: false,
   },
   {
+    id: 2,
     name: "",
     wind: "South",
-    points: 0,
+    points: 2,
     chombo: 0,
     dealer: false,
     winner: false,
@@ -22,9 +24,10 @@ const initialPlayers = [
     riichi: false,
   },
   {
+    id: 3,
     name: "",
     wind: "West",
-    points: 0,
+    points: 4,
     chombo: 0,
     dealer: false,
     winner: false,
@@ -32,9 +35,10 @@ const initialPlayers = [
     riichi: false,
   },
   {
+    id: 4,
     name: "",
     wind: "North",
-    points: 0,
+    points: 3,
     chombo: 0,
     dealer: false,
     winner: false,
@@ -65,7 +69,9 @@ export const HanProvider = ({ children }) => {
         setHonba,
         wind,
         setWind,
-        honbaScore,tie,setTie
+        honbaScore,
+        tie,
+        setTie,
       }}
     >
       {children}

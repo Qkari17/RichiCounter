@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHan } from "./HanContext";
 import { Button } from "../../ui/Button/Button";
 import { TypeMenu } from "../../Components/TypeOfEnding";
+import { Result } from "../../Components/Result";
 
 export const HanBoard = () => {
   const { playerList, setPlayerList, honba, round, tie } = useHan();
@@ -122,6 +123,7 @@ export const HanBoard = () => {
           onClick={handleMenu}
         ></Button>
         <TypeMenu mode={mode} setMode={setMode} />
+        <Result playerList={playerList}/>
       </main>
     </div>
   );
