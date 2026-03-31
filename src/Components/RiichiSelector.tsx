@@ -27,6 +27,22 @@ export const RiichiSelector = ({
     setPlayerList(newPlayerList);
   };
 
+const updateRanks =(playerList) =>{
+  const sorted = [...playerList].sort((a,b) => b.points - a.points);
+
+  for (let i= 0; i<sorted.length;i++){
+if (i>0 && sorted[i].points=== sorted[i-1].points)
+  sorted[i].rank = sorted[i-1].rank
+else {
+  sorted[i].rank = i+1;
+}
+
+}
+const sortedId = sorted.sort((a,b)=>b.id - a.id)
+return setPlayerList(sortedId)
+}
+updateRanks(playerList)
+
   const handleEnd = () => {
   const winnerCount = playerList.filter((i) => i.winner).length;
   const riichiCount =

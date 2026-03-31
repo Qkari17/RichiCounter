@@ -10,7 +10,7 @@ export const Result = ({playerList}) => {
       <ul>
         {sortedPlayers.map((i) => (
           <li key={i.id}>
-            {i.name} {i.wind}= {i.points}
+            {i.name} {i.wind}= {i.points} rank {i.rank}
           </li>
         ))}
       </ul>
