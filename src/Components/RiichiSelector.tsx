@@ -26,96 +26,133 @@ export const RiichiSelector = ({
     newPlayerList[i].riichi = !newPlayerList[i].riichi;
     setPlayerList(newPlayerList);
   };
+  const updateRanks = (playerList) => {
+    const sorted = [...playerList].sort((a, b) => b.points - a.points);
+    for (let i = 0; i < sorted.length; i++) {
+      if (i > 0 && sorted[i].points === sorted[i - 1].points)
+        sorted[i].rank = sorted[i - 1].rank;
+      else {
+        sorted[i].rank = i + 1;
+      }
+    }
+    const sortedRank = sorted.sort((a, b) => b.id - a.id);
+    return setPlayerList(sortedRank);
+  };
+  function umaCalculate(players, setPlayerList) {
+    const rankPoints = [15000, 5000, -5000, -15000];
 
-const updateRanks =(playerList) =>{
-  const sorted = [...playerList].sort((a,b) => b.points - a.points);
+    const groups = {};
 
-  for (let i= 0; i<sorted.length;i++){
-if (i>0 && sorted[i].points=== sorted[i-1].points)
-  sorted[i].rank = sorted[i-1].rank
-else {
-  sorted[i].rank = i+1;
-}
+    players.forEach((player) => {
+      if (!groups[player.rank]) {
+        groups[player.rank] = [];
+      }
+      groups[player.rank].push(player);
+    });
 
-}
-const sortedId = sorted.sort((a,b)=>b.id - a.id)
-return setPlayerList(sortedId)
-}
-updateRanks(playerList)
+    const updatedPlayers = [];
+
+    const sortedRanks = Object.keys(groups)
+      .map(Number)
+      .sort((a, b) => a - b);
+
+    sortedRanks.forEach((rank) => {
+      const tiedPlayers = groups[rank];
+
+      const startIndex = rank - 1;
+      const endIndex = startIndex + tiedPlayers.length - 1;
+
+      let sum = 0;
+      for (let i = startIndex; i <= endIndex; i++) {
+        sum += rankPoints[i];
+      }
+
+      const splitPoints = sum / tiedPlayers.length;
+
+      tiedPlayers.forEach((player) => {
+        updatedPlayers.push({
+          ...player,
+          points: player.points + splitPoints,
+        });
+      });
+    });
+  
+
+    setPlayerList(updatedPlayers);
+  }
 
   const handleEnd = () => {
-  const winnerCount = playerList.filter((i) => i.winner).length;
-  const riichiCount =
-    playerList.filter((i) => i.riichi).length + riichiBase;
-  const isHonba = playerList.some((i) => i.winner && i.dealer);
-  const riichiTotal = riichiCount * 1000;
+    const winnerCount = playerList.filter((i) => i.winner).length;
+    const riichiCount = playerList.filter((i) => i.riichi).length + riichiBase;
+    const isHonba = playerList.some((i) => i.winner && i.dealer);
+    const riichiTotal = riichiCount * 1000;
 
-  setReady(false);
+    setReady(false);
 
-  const riichiDeducted = playerList.map((i) =>
-    i.riichi ? { ...i, points: i.points - 1000 } : i
-  );
-
-  let updatedList = riichiDeducted;
-
-  if (!tie) {
-    updatedList = updatedList.map((i) =>
-      i.winner
-        ? { ...i, points: i.points + riichiTotal / winnerCount }
-        : i
+    const riichiDeducted = playerList.map((i) =>
+      i.riichi ? { ...i, points: i.points - 1000 } : i,
     );
-    setRiichiBase(0);
-  } else {
-    setRiichiBase(riichiCount);
-  }
 
-  const resetList = updatedList.map((i) => ({
-    ...i,
-    winner: false,
-    loser: false,
-    riichi: false,
-  }));
+    let updatedList = riichiDeducted;
 
-  setTsumo(false);
-  setRon(false);
-  setTie(false);
+    if (!tie) {
+      updatedList = updatedList.map((i) =>
+        i.winner ? { ...i, points: i.points + riichiTotal / winnerCount } : i,
+      );
+      setRiichiBase(0);
+    } else {
+      setRiichiBase(riichiCount);
+    }
 
-  if (isHonba) {
-    setHonba((prev) => prev + 1);
-    setPlayerList(resetList);
-    setMode("game");
-    return;
-  }
+    const resetList = updatedList.map((i) => ({
+      ...i,
+      winner: false,
+      loser: false,
+      riichi: false,
+    }));
 
- 
-  const nextDealerIndex = (round + 1) % 4;
+    setTsumo(false);
+    setRon(false);
+    setTie(false);
 
-  const rotated = resetList.map((i, idx) => ({
-    ...i,
-    dealer: idx === nextDealerIndex,
-  }));
+    if (isHonba) {
+      setHonba((prev) => prev + 1);
+      setPlayerList(resetList);
+      setMode("game");
+      return;
+    }
 
-  let nextRound = round;
-  let nextWind = wind;
+    const nextDealerIndex = (round + 1) % 4;
 
-  if (round === 3) {
-    nextRound = 0;
-    nextWind = "South";
-  } else {
-    nextRound = round + 1;
-  }
+    const rotated = resetList.map((i, idx) => ({
+      ...i,
+      dealer: idx === nextDealerIndex,
+    }));
 
-  setPlayerList(rotated);
-  setHonba(0);
-  setRound(nextRound);
-  setWind(nextWind);
+    let nextRound = round;
+    let nextWind = wind;
 
-  if (nextRound === 3 && nextWind === "South") {
-    setMode("end");
-  } else {
-    setMode("game");
-  }
-};
+    if (round === 3) {
+      nextRound = 0;
+      nextWind = "South";
+    } else {
+      nextRound = round + 1;
+    }
+
+    setPlayerList(rotated);
+    setHonba(0);
+    setRound(nextRound);
+    setWind(nextWind);
+    
+    if (nextRound === 3 && nextWind === "South") {
+      setMode("end");
+      updateRanks(playerList);
+      umaCalculate(playerList, setPlayerList);
+      console.log(playerList);
+    } else {
+      setMode("game");
+    }
+  };
 
   return (
     <section

@@ -123,7 +123,7 @@ export const HanBoard = () => {
           onClick={handleMenu}
         ></Button>
         <TypeMenu mode={mode} setMode={setMode} />
-        <Result playerList={playerList}/>
+        <Result playerList={playerList} mode={mode}/>
       </main>
     </div>
   );
