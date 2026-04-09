@@ -3,9 +3,11 @@ import { useHan } from "./HanContext";
 import { Button } from "../../ui/Button/Button";
 import { TypeMenu } from "../../Components/TypeOfEnding";
 import { Result } from "../../Components/Result";
+import { ChomboSelector } from "../../Components/ChomboSelector";
 
 export const HanBoard = () => {
   const { playerList, setPlayerList, honba, round, tie } = useHan();
+  const [chombo, setChombo] = useState(false);
   const [mode, setMode] = useState("game");
   const viewRound = round + 1;
   const handleMenu = () => {
@@ -24,9 +26,9 @@ export const HanBoard = () => {
             <h1>Who had riichi?</h1>
           ) : mode === "winner" ? (
             <h1>Who won?</h1>
-          ) : (
-            <h1></h1>
-          )}
+          ) : chombo ? (
+            <h1>Who made chombo?</h1>
+          ):<h1></h1>}
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
@@ -122,8 +124,17 @@ export const HanBoard = () => {
           }
           onClick={handleMenu}
         ></Button>
+        <Button
+          label={"chombo"}
+          className={
+            "absolute right-8 top-8 rounded-full bg-red-400 w-10 h-10"
+          } onClick={() => {
+              setChombo((m) => !m);
+            }}
+        ></Button>
         <TypeMenu mode={mode} setMode={setMode} />
-        <Result playerList={playerList} mode={mode}/>
+        <Result playerList={playerList} mode={mode} />
+        <ChomboSelector chombo={chombo} setChombo={setChombo} />
       </main>
     </div>
   );
