@@ -28,7 +28,9 @@ export const HanBoard = () => {
             <h1>Who won?</h1>
           ) : chombo ? (
             <h1>Who made chombo?</h1>
-          ):<h1></h1>}
+          ) : (
+            <h1></h1>
+          )}
         </div>
         <div className="flex justify-center">
           <div className="flex flex-col items-center rotate-180">
@@ -118,19 +120,20 @@ export const HanBoard = () => {
         <Button
           label={"X"}
           className={
-            mode === "game"
-              ? "absolute right-8 bottom-8 rounded-full bg-red-400 w-10 h-10"
-              : "hidden"
+            chombo
+              ? "hidden"
+              : mode === "game"
+                ? "absolute right-8 bottom-8 rounded-full bg-red-400 w-10 h-10"
+                : "hidden"
           }
           onClick={handleMenu}
         ></Button>
         <Button
           label={"chombo"}
-          className={
-            "absolute right-8 top-8 rounded-full bg-red-400 w-10 h-10"
-          } onClick={() => {
-              setChombo((m) => !m);
-            }}
+          className={"absolute right-8 top-8 rounded-full bg-red-400 w-10 h-10"}
+          onClick={() => {
+            setChombo((m) => !m);
+          }}
         ></Button>
         <TypeMenu mode={mode} setMode={setMode} />
         <Result playerList={playerList} mode={mode} />

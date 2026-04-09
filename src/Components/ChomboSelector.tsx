@@ -8,8 +8,25 @@ export const ChomboSelector = ({ chombo, setChombo }) => {
   const handleClick = (i) => {
     const newPlayerList = playerList.slice();
     newPlayerList[i].loser = !newPlayerList[i].loser;
+    setPlayerList(newPlayerList);
+    setReady(true);
   };
-  const handleNext = () => {};
+  const handleNext = () => {
+    const chomboList = playerList.map((player) => {
+      if (player.loser) {
+        return {
+          ...player,
+          chombo: player.chombo + 1,
+          loser: false,
+        };
+      }
+      return player;
+    });
+    setPlayerList(chomboList);
+    setChombo(false);
+    setReady(false);
+    console.log(chomboList);
+  };
   return (
     <>
       <section
