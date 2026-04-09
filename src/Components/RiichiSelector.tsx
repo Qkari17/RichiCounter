@@ -139,7 +139,7 @@ export const RiichiSelector = ({
 
   let finalList = rotated;
 
-if (nextRound === 2) {
+if (nextRound === 3 && nextWind === "South") {
   finalList = updateRanks(finalList);
   finalList = umaCalculate(finalList);
   finalList = chomboCalculate(finalList);
