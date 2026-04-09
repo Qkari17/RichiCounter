@@ -26,60 +26,54 @@ export const RiichiSelector = ({
     newPlayerList[i].riichi = !newPlayerList[i].riichi;
     setPlayerList(newPlayerList);
   };
-  const updateRanks = (playerList) => {
-    const sorted = [...playerList].sort((a, b) => b.points - a.points);
-    for (let i = 0; i < sorted.length; i++) {
-      if (i > 0 && sorted[i].points === sorted[i - 1].points)
-        sorted[i].rank = sorted[i - 1].rank;
-      else {
-        sorted[i].rank = i + 1;
-      }
-    }
-    const sortedRank = sorted.sort((a, b) => b.id - a.id);
-    return setPlayerList(sortedRank);
-  };
-  function umaCalculate(players, setPlayerList) {
-    const rankPoints = [15000, 5000, -5000, -15000];
+  const updateRanks = (players) => {
+  const sorted = [...players].sort((a, b) => b.points - a.points);
 
-    const groups = {};
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i].points === sorted[i - 1].points)
+      sorted[i].rank = sorted[i - 1].rank;
+    else sorted[i].rank = i + 1;
+  }
 
-    players.forEach((player) => {
-      if (!groups[player.rank]) {
-        groups[player.rank] = [];
-      }
-      groups[player.rank].push(player);
-    });
+  return sorted.sort((a, b) => b.id - a.id);
+};
+  const umaCalculate = (players) => {
+  const rankPoints = [15000, 5000, -5000, -15000];
+  const groups = {};
 
-    const updatedPlayers = [];
+  players.forEach((p) => {
+    if (!groups[p.rank]) groups[p.rank] = [];
+    groups[p.rank].push(p);
+  });
 
-    const sortedRanks = Object.keys(groups)
-      .map(Number)
-      .sort((a, b) => a - b);
+  const result = [];
 
-    sortedRanks.forEach((rank) => {
-      const tiedPlayers = groups[rank];
-
-      const startIndex = rank - 1;
-      const endIndex = startIndex + tiedPlayers.length - 1;
+  Object.keys(groups)
+    .map(Number)
+    .sort((a, b) => a - b)
+    .forEach((rank) => {
+      const tied = groups[rank];
+      const start = rank - 1;
+      const end = start + tied.length - 1;
 
       let sum = 0;
-      for (let i = startIndex; i <= endIndex; i++) {
-        sum += rankPoints[i];
-      }
+      for (let i = start; i <= end; i++) sum += rankPoints[i];
 
-      const splitPoints = sum / tiedPlayers.length;
+      const split = sum / tied.length;
 
-      tiedPlayers.forEach((player) => {
-        updatedPlayers.push({
-          ...player,
-          points: player.points + splitPoints,
-        });
+      tied.forEach((p) => {
+        result.push({ ...p, points: p.points + split });
       });
     });
-  
 
-    setPlayerList(updatedPlayers);
-  }
+  return result;
+};
+  const chomboCalculate = (players) => {
+  return players.map((p) => ({
+    ...p,
+    points: p.points - p.chombo * 20000,
+  }));
+};
 
   const handleEnd = () => {
     const winnerCount = playerList.filter((i) => i.winner).length;
@@ -139,20 +133,24 @@ export const RiichiSelector = ({
       nextRound = round + 1;
     }
 
-    setPlayerList(rotated);
     setHonba(0);
     setRound(nextRound);
     setWind(nextWind);
-    
-    if (nextRound === 3 && nextWind === "South") {
-      setMode("end");
-      updateRanks(playerList);
-      umaCalculate(playerList, setPlayerList);
-      console.log(playerList);
-    } else {
-      setMode("game");
-    }
-  };
+
+  let finalList = rotated;
+
+if (nextRound === 2) {
+  finalList = updateRanks(finalList);
+  finalList = umaCalculate(finalList);
+  finalList = chomboCalculate(finalList);
+  finalList = updateRanks(finalList);
+
+  setPlayerList(finalList);
+  setMode("end");
+} else {
+  setPlayerList(finalList);
+  setMode("game");
+}};
 
   return (
     <section
