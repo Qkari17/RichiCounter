@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useLocalStorageHistory } from "../../Hook/History";
 
 const initialPlayers = [
   {
@@ -53,8 +54,9 @@ const initialPlayers = [
 
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
-  const [playerList, setPlayerList] = useState(initialPlayers);
-  const [dealer, setDealer] = useState(0);
+ const [playerList, setPlayerList, { undo, reset }] =
+  useLocalStorageHistory("playersData", initialPlayers);
+   const [dealer, setDealer] = useState(0);
   const [round, setRound] = useState(0);
   const [honba, setHonba] = useState(0);
   const [wind, setWind] = useState("East");
@@ -76,6 +78,9 @@ export const HanProvider = ({ children }) => {
         honbaScore,
         tie,
         setTie,
+          undo,
+    reset,
+    history,
       }}
     >
       {children}

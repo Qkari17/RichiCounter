@@ -6,7 +6,7 @@ import { Result } from "../../Components/Result";
 import { ChomboSelector } from "../../Components/ChomboSelector";
 
 export const HanBoard = () => {
-  const { playerList, setPlayerList, honba, round, tie } = useHan();
+  const { honba, round, tie, playerList, setPlayerList, undo } = useHan();
   const [chombo, setChombo] = useState(false);
   const [mode, setMode] = useState("game");
   const viewRound = round + 1;
