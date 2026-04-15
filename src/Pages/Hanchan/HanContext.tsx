@@ -54,7 +54,7 @@ const initialPlayers = [
 
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
- const [playerList, setPlayerList, { undo, reset }] =
+ const [playerList, setPlayerList, { undo, reset , commit}] =
   useLocalStorageHistory("playersData", initialPlayers);
    const [dealer, setDealer] = useState(0);
   const [round, setRound] = useState(0);
@@ -81,6 +81,7 @@ export const HanProvider = ({ children }) => {
           undo,
     reset,
     history,
+    commit
       }}
     >
       {children}
