@@ -4,7 +4,6 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
   const [state, setState] = useState(initialValue);
   const [history, setHistory] = useState([]);
 
-
   const prevRef = useRef(initialValue);
 
   // load
@@ -20,39 +19,51 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
 
   const setValue = (value) => {
     setState((prev) => {
-      const newValue =
-        typeof value === "function" ? value(prev) : value;
+      const newValue = typeof value === "function" ? value(prev) : value;
 
       prevRef.current = newValue;
       return newValue;
     });
   };
 
+  const commit = (newState) => {
+    if (!newState) return;
 
-  const commit = (overrideState) => {
-  const currentState = overrideState ?? state;
+    setHistory((prevHistory) => {
+      const updatedHistory = [...prevHistory, newState];
 
-  const prev = history.length
-    ? history[history.length - 1]
-    : initialValue;
+      if (updatedHistory.length > limit) {
+        updatedHistory.shift();
+      }
 
-  const newHistory = [...history, prev];
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          current: newState,
+          history: updatedHistory,
+        }),
+      );
 
-  if (newHistory.length > limit) newHistory.shift();
-
-  localStorage.setItem(
-    key,
-    JSON.stringify({
-      current: currentState,
-      history: newHistory,
-    })
-  );
-
-  setHistory(newHistory);
-};
+      return updatedHistory;
+    });
+  };
 
   const undo = () => {
-    if (history.length === 0) return;
+    if (history.length === 0) {
+      if (state === initialValue) return;
+
+      setState(initialValue);
+
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          current: initialValue,
+          history: [],
+        }),
+      );
+
+      return;
+    }
 
     const previous = history[history.length - 1];
     const newHistory = history.slice(0, -1);
@@ -65,7 +76,7 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
       JSON.stringify({
         current: previous,
         history: newHistory,
-      })
+      }),
     );
   };
   const reset = () => {

@@ -135,6 +135,13 @@ export const HanBoard = () => {
             setChombo((m) => !m);
           }}
         ></Button>
+        <Button
+          label={"undo"}
+          className={"absolute left-8 top-8 rounded-full bg-red-400 w-10 h-10"}
+          onClick={() => {
+            undo();
+          }}
+        ></Button>
         <TypeMenu mode={mode} setMode={setMode} />
         <Result playerList={playerList} mode={mode} />
         <ChomboSelector chombo={chombo} setChombo={setChombo} />
