@@ -6,7 +6,8 @@ import { Result } from "../../Components/Result";
 import { ChomboSelector } from "../../Components/ChomboSelector";
 
 export const HanBoard = () => {
-  const { honba, round, tie, playerList, setPlayerList, undo } = useHan();
+  const { honba, round, tie, playerList, setPlayerList, undo, resetPlayer } =
+    useHan();
   const [chombo, setChombo] = useState(false);
   const [mode, setMode] = useState("game");
   const viewRound = round + 1;
@@ -140,6 +141,9 @@ export const HanBoard = () => {
           className={"absolute left-8 top-8 rounded-full bg-red-400 w-10 h-10"}
           onClick={() => {
             undo();
+            setTimeout(() => {
+              resetPlayer(setPlayerList);
+            }, 0);
           }}
         ></Button>
         <TypeMenu mode={mode} setMode={setMode} />

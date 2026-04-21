@@ -84,6 +84,16 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
     setHistory([]);
     localStorage.removeItem(key);
   };
+  const resetPlayer = (playerList, setPlayerList) => {
+    const updatedList = playerList.map((i) => ({
+      ...i,
+      winner: false,
+      loser: false,
+      riichi: false,
+    }));
 
-  return [state, setValue, { commit, undo, history, reset }];
+    setPlayerList(updatedList);
+  };
+
+  return [state, setValue, { commit, undo, history, reset, resetPlayer }];
 };
