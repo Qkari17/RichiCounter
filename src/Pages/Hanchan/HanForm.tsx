@@ -4,7 +4,7 @@ import { Input } from "../../ui/Button/Input";
 import { useHan } from "./HanContext";
 
 export const HanForm = () => {
-  const { playerList, setPlayerList } = useHan();
+  const { playerList, setPlayerList , reset} = useHan();
   const handlePlayerName = (e, index) => {
     const updatedPlayers = [...playerList];
     updatedPlayers[index].name = e.target.value;
@@ -40,7 +40,9 @@ export const HanForm = () => {
             <Button
               className={"bg-red-400"}
               label="Next"
-            
+              onClick={() => {
+            reset();
+          }}
              
             />
           </Link>

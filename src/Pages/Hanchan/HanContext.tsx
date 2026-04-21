@@ -54,9 +54,9 @@ const initialPlayers = [
 
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
- const [playerList, setPlayerList, { undo, reset , commit}] =
-  useLocalStorageHistory("playersData", initialPlayers);
-   const [dealer, setDealer] = useState(0);
+  const [playerList, setPlayerList, { undo, reset, commit }] =
+    useLocalStorageHistory("playersData", initialPlayers);
+  const [dealer, setDealer] = useState(0);
   const [round, setRound] = useState(0);
   const [honba, setHonba] = useState(0);
   const [wind, setWind] = useState("East");
@@ -78,10 +78,10 @@ export const HanProvider = ({ children }) => {
         honbaScore,
         tie,
         setTie,
-          undo,
-    reset,
-    history,
-    commit
+        undo,
+        reset,
+        history,
+        commit,
       }}
     >
       {children}
