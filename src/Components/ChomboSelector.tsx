@@ -3,7 +3,7 @@ import { useHan } from "../Pages/Hanchan/HanContext";
 
 export const ChomboSelector = ({ chombo, setChombo }) => {
   const [ready, setReady] = useState(false);
-  const { playerList, setPlayerList, commit } = useHan();
+  const { playerList, setPlayerList, commitPlayers } = useHan();
 
   const handleClick = (i) => {
     const newPlayerList = playerList.slice();
@@ -25,7 +25,7 @@ export const ChomboSelector = ({ chombo, setChombo }) => {
     setPlayerList(chomboList);
     setChombo(false);
     setReady(false);
-    commit();
+    commitPlayers();
     console.log(chomboList);
   };
   return (

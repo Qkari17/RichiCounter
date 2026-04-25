@@ -54,14 +54,24 @@ const initialPlayers = [
 
 const HanContext = createContext();
 export const HanProvider = ({ children }) => {
-  const [playerList, setPlayerList, { undo, reset, commit, resetPlayer }] =
-    useLocalStorageHistory("playersData", initialPlayers);
+const [playerList, setPlayerList, { commit: commitPlayers, undo: undoPlayers, reset, resetPlayer}] =
+  useLocalStorageHistory("players", initialPlayers);
+
+const [round, setRound, { commit: commitRound, undo: undoRound }] =
+  useLocalStorageHistory("round", 0);
+
+const [honba, setHonba, { commit: commitHonba, undo: undoHonba }] =
+  useLocalStorageHistory("honba", 0);
   const [dealer, setDealer] = useState(0);
-  const [round, setRound] = useState(0);
-  const [honba, setHonba] = useState(0);
   const [wind, setWind] = useState("East");
   const [tie, setTie] = useState(false);
   const honbaScore = honba * 300;
+
+  const undoAll = () => {
+  undoPlayers();
+  undoRound();
+  undoHonba();
+};
   return (
     <HanContext.Provider
       value={{
@@ -78,10 +88,10 @@ export const HanProvider = ({ children }) => {
         honbaScore,
         tie,
         setTie,
-        undo,
+        undoAll,
         reset,
         history,
-        commit,
+        commitPlayers,
         resetPlayer,
       }}
     >
