@@ -141,9 +141,7 @@ export const HanBoard = () => {
           className={"absolute left-8 top-8 rounded-full bg-red-400 w-10 h-10"}
           onClick={() => {
             undoAll();
-            setTimeout(() => {
-              resetPlayer(setPlayerList);
-            }, 0);
+            resetPlayer(setPlayerList);
           }}
         ></Button>
         <TypeMenu mode={mode} setMode={setMode} />

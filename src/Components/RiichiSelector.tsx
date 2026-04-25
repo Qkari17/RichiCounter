@@ -18,9 +18,11 @@ export const RiichiSelector = ({
     round,
     wind,
     setWind,
+    honba,
     setHonba,
     commitPlayers,
-    commitRound
+    commitRound,
+    commitHonba
   } = useHan();
   const [riichiBase, setRiichiBase] = useState(0);
   const handleClick = (i) => {
@@ -126,6 +128,7 @@ export const RiichiSelector = ({
     }));
 
     let nextRound = round;
+    const nextHonba = 0;
     let nextWind = wind;
 
     if (round === 3) {
@@ -135,7 +138,7 @@ export const RiichiSelector = ({
       nextRound = round + 1;
     }
 
-    setHonba(0);
+    setHonba(nextHonba);
     setRound(nextRound);
     setWind(nextWind);
 
@@ -154,7 +157,8 @@ export const RiichiSelector = ({
       setMode("game");
     }
     commitPlayers(finalList);
-    commitRound(nextRound)
+    commitRound(nextRound);
+    commitHonba(nextHonba)
   };
 
   return (

@@ -26,28 +26,29 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
     });
   };
 
-  const commit = (newState) => {
-    if (!newState) return;
+const commit = (newState) => {
+ 
+  if (newState === undefined) return;
 
-    setHistory((prevHistory) => {
-      const updatedHistory = [...prevHistory, newState];
+  setHistory((prevHistory) => {
+    const updatedHistory = [...prevHistory, state]; 
 
-      if (updatedHistory.length > limit) {
-        updatedHistory.shift();
-      }
+    if (updatedHistory.length > limit) {
+      updatedHistory.shift();
+    }
 
-      localStorage.setItem(
-        key,
-        JSON.stringify({
-          current: newState,
-          history: updatedHistory,
-        }),
-      );
 
-      return updatedHistory;
-    });
-  };
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        current: newState,
+        history: updatedHistory,
+      })
+    );
 
+    return updatedHistory;
+  });
+};
   const undo = () => {
     if (history.length === 0) {
       if (state === initialValue) return;
@@ -84,16 +85,16 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
     setHistory([]);
     localStorage.removeItem(key);
   };
-  const resetPlayer = (playerList, setPlayerList) => {
-    const updatedList = playerList.map((i) => ({
+const resetPlayer = (setPlayerList) => {
+  setPlayerList((prev) =>
+    prev.map((i) => ({
       ...i,
       winner: false,
       loser: false,
       riichi: false,
-    }));
-
-    setPlayerList(updatedList);
-  };
+    }))
+  );
+};
 
   return [state, setValue, { commit, undo, history, reset, resetPlayer }];
 };
