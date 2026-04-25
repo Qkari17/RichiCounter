@@ -1,10 +1,13 @@
 import { RouterProvider } from "react-router/dom";
-import { router} from "./routes";
+import { router } from "./routes";
+import { HanProvider } from "./Pages/Hanchan/HanContext";
 
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <HanProvider>
+        <RouterProvider router={router} />
+      </HanProvider>
     </>
   );
 }

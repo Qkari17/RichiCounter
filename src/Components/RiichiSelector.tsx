@@ -22,14 +22,16 @@ export const RiichiSelector = ({
     setHonba,
     commitPlayers,
     commitRound,
-    commitHonba
+    commitHonba,
   } = useHan();
   const [riichiBase, setRiichiBase] = useState(0);
   const handleClick = (i) => {
-    const newPlayerList = playerList.slice();
-    newPlayerList[i].riichi = !newPlayerList[i].riichi;
-    setPlayerList(newPlayerList);
-  };
+  const newPlayerList = playerList.map((p, idx) =>
+    idx === i ? { ...p, riichi: !p.riichi } : p
+  );
+
+  setPlayerList(newPlayerList);
+};
   const updateRanks = (players) => {
     const sorted = [...players].sort((a, b) => b.points - a.points);
 
@@ -114,9 +116,14 @@ export const RiichiSelector = ({
     setTie(false);
 
     if (isHonba) {
+      const nextRound = round;
+      const nextHonba = 0;
       setHonba((prev) => prev + 1);
       setPlayerList(resetList);
       setMode("game");
+      commitPlayers(resetList);
+      commitRound(nextRound);
+      commitHonba(nextHonba);
       return;
     }
 
@@ -150,15 +157,17 @@ export const RiichiSelector = ({
       finalList = chomboCalculate(finalList);
       finalList = updateRanks(finalList);
 
-      setPlayerList(finalList);
       setMode("end");
     } else {
-      setPlayerList(finalList);
       setMode("game");
     }
-    commitPlayers(finalList);
+
+   const prevPlayers = playerList;
+
+setPlayerList(finalList);
+commitPlayers(prevPlayers);
     commitRound(nextRound);
-    commitHonba(nextHonba)
+    commitHonba(nextHonba);
   };
 
   return (

@@ -1,15 +1,25 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "../../ui/Button/Button";
 import { Input } from "../../ui/Button/Input";
 import { useHan } from "./HanContext";
 
+
 export const HanForm = () => {
-  const { playerList, setPlayerList , reset} = useHan();
+  const {
+    playerList,
+    setPlayerList,
+    reset,
+    commitPlayers,
+    commitHonba,
+    commitRound,
+  } = useHan();
   const handlePlayerName = (e, index) => {
     const updatedPlayers = [...playerList];
     updatedPlayers[index].name = e.target.value;
     setPlayerList(updatedPlayers);
   };
+
+  const navigate = useNavigate();
   return (
     <div className="bg-yellow-300 flex-col flex h-screen w-screen gap-5">
       <header className="h-10 bg-green-400 flex justify-center">
@@ -36,16 +46,17 @@ export const HanForm = () => {
               />
             ))}
           </form>
-          <Link to="hanboard">
+       
             <Button
               className={"bg-red-400"}
               label="Next"
               onClick={() => {
-            reset();
-          }}
+                reset();
              
+              navigate("/hanboard");
+              }}
             />
-          </Link>
+         
         </section>
       </main>
     </div>
