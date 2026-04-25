@@ -20,6 +20,7 @@ export const RiichiSelector = ({
     setWind,
     setHonba,
     commitPlayers,
+    commitRound
   } = useHan();
   const [riichiBase, setRiichiBase] = useState(0);
   const handleClick = (i) => {
@@ -153,6 +154,7 @@ export const RiichiSelector = ({
       setMode("game");
     }
     commitPlayers(finalList);
+    commitRound(nextRound)
   };
 
   return (

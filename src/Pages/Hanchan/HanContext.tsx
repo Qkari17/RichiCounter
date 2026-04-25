@@ -92,7 +92,9 @@ const [honba, setHonba, { commit: commitHonba, undo: undoHonba }] =
         reset,
         history,
         commitPlayers,
+        commitRound,
         resetPlayer,
+      
       }}
     >
       {children}
