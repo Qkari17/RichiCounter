@@ -21,6 +21,8 @@ export const HanBoard = () => {
   const viewRound = round + 1;
   const handleMenu = () => {
     setMode("menu");
+    resetPlayer(setPlayerList)
+
   };
 
   return (

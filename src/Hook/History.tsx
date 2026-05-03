@@ -6,16 +6,30 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
 
   const prevRef = useRef(initialValue);
 
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem(key));
+useEffect(() => {
+  const storedRaw = localStorage.getItem(key);
 
-    if (stored) {
-      setState(stored.current || initialValue);
-      setHistory(stored.history || []);
-      prevRef.current = stored.current || initialValue;
-    }
-  }, [key]);
+  if (!storedRaw) {
+    const initialData = {
+      current: initialValue,
+      history: [initialValue], // 👈 tutaj zmiana
+    };
 
+    localStorage.setItem(key, JSON.stringify(initialData));
+
+    setState(initialValue);
+    setHistory([initialValue]); // 👈 i tutaj
+    prevRef.current = initialValue;
+
+    return;
+  }
+
+  const stored = JSON.parse(storedRaw);
+
+  setState(stored.current ?? initialValue);
+  setHistory(stored.history ?? [initialValue]);
+  prevRef.current = stored.current ?? initialValue;
+}, [key, initialValue]);
   const setValue = (value) => {
     setState((prev) => {
       const newValue = typeof value === "function" ? value(prev) : value;
@@ -25,24 +39,24 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
     });
   };
 
-  const commit = (newState) => {
-    if (newState === undefined) return;
+const commit = (newState) => {
+  if (newState === undefined) return;
 
-    const currentToSave = newState;
-    setHistory((prevHistory) => {
-      let updatedHistory = [...prevHistory, state];
+  setHistory((prevHistory) => {
+    let updatedHistory = [...prevHistory, prevRef.current];
 
-   const storageData = {
-      current: currentToSave,
+    const storageData = {
+      current: newState,
       history: updatedHistory,
     };
 
     localStorage.setItem(key, JSON.stringify(storageData));
 
+    prevRef.current = newState;
+
     return updatedHistory;
   });
-
-  };
+};
   const undo = () => {
     if (history.length === 0) {
       if (state === initialValue) return;

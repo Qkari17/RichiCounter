@@ -26,12 +26,12 @@ export const RiichiSelector = ({
   } = useHan();
   const [riichiBase, setRiichiBase] = useState(0);
   const handleClick = (i) => {
-  const newPlayerList = playerList.map((p, idx) =>
-    idx === i ? { ...p, riichi: !p.riichi } : p
-  );
+    const newPlayerList = playerList.map((p, idx) =>
+      idx === i ? { ...p, riichi: !p.riichi } : p,
+    );
 
-  setPlayerList(newPlayerList);
-};
+    setPlayerList(newPlayerList);
+  };
   const updateRanks = (players) => {
     const sorted = [...players].sort((a, b) => b.points - a.points);
 
@@ -115,17 +115,20 @@ export const RiichiSelector = ({
     setRon(false);
     setTie(false);
 
-    if (isHonba) {
-      const nextRound = round;
-      const nextHonba = 0;
-      setHonba((prev) => prev + 1);
-      setPlayerList(resetList);
-      setMode("game");
-      commitPlayers(resetList);
-      commitRound(nextRound);
-      commitHonba(nextHonba);
-      return;
-    }
+   if (isHonba) {
+  const nextRound = round;
+  const nextHonba = honba + 1; 
+
+  setHonba(nextHonba);
+  setPlayerList(resetList);
+  setMode("game");
+
+  commitPlayers(resetList);
+  commitRound(nextRound);
+  commitHonba(nextHonba);
+
+  return;
+}
 
     const nextDealerIndex = (round + 1) % 4;
 
@@ -162,10 +165,10 @@ export const RiichiSelector = ({
       setMode("game");
     }
 
-   const prevPlayers = playerList;
+    const prevPlayers = playerList;
 
-setPlayerList(finalList);
-commitPlayers(prevPlayers);
+    setPlayerList(finalList);
+    commitPlayers(prevPlayers);
     commitRound(nextRound);
     commitHonba(nextHonba);
   };
