@@ -14,15 +14,14 @@ export const HanBoard = () => {
     setPlayerList,
     undoAll,
     resetPlayer,
-  
+    wind,
   } = useHan();
   const [chombo, setChombo] = useState(false);
   const [mode, setMode] = useState("game");
   const viewRound = round + 1;
   const handleMenu = () => {
     setMode("menu");
-    resetPlayer(setPlayerList)
-
+    resetPlayer(setPlayerList);
   };
 
   return (
@@ -85,7 +84,7 @@ export const HanBoard = () => {
             </p>
           </div>
           <div className="content-center">
-            {viewRound} {honba > 0 && `/ ${honba}`}
+           {wind} {viewRound} {honba > 0 && `/ ${honba}`} 
           </div>
           <div className="-rotate-90 flex flex-col items-center">
             {playerList[1].riichi && (
@@ -150,7 +149,7 @@ export const HanBoard = () => {
           label={"undo"}
           className={"absolute left-8 top-8 rounded-full bg-red-400 w-10 h-10"}
           onClick={() => {
-           undoAll();
+            undoAll();
             resetPlayer(setPlayerList);
           }}
         ></Button>

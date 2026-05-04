@@ -12,13 +12,13 @@ useEffect(() => {
   if (!storedRaw) {
     const initialData = {
       current: initialValue,
-      history: [initialValue], // 👈 tutaj zmiana
+      history: [initialValue], 
     };
 
     localStorage.setItem(key, JSON.stringify(initialData));
 
     setState(initialValue);
-    setHistory([initialValue]); // 👈 i tutaj
+    setHistory([initialValue]); 
     prevRef.current = initialValue;
 
     return;
@@ -43,7 +43,7 @@ const commit = (newState) => {
   if (newState === undefined) return;
 
   setHistory((prevHistory) => {
-    let updatedHistory = [...prevHistory, prevRef.current];
+    const updatedHistory = [...prevHistory, prevRef.current]; 
 
     const storageData = {
       current: newState,
