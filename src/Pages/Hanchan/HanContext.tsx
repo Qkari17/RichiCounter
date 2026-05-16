@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useLocalStorageHistory } from "../../Hook/History";
 
-const initialPlayers = [
+export const initialPlayers = [
   {
     id: 1,
     name: "",

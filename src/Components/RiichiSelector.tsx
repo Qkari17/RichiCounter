@@ -115,20 +115,20 @@ export const RiichiSelector = ({
     setRon(false);
     setTie(false);
 
-   if (isHonba) {
-  const nextRound = round;
-  const nextHonba = honba + 1; 
+    if (isHonba) {
+      const nextRound = round;
+      const nextHonba = honba + 1;
 
-  setHonba(nextHonba);
-  setPlayerList(resetList);
-  setMode("game");
+      setHonba(nextHonba);
+      setPlayerList(resetList);
+      setMode("game");
 
-  commitPlayers(resetList);
-  commitRound(nextRound);
-  commitHonba(nextHonba);
+      commitPlayers(resetList);
+      commitRound(nextRound);
+      commitHonba(nextHonba);
 
-  return;
-}
+      return;
+    }
 
     const nextDealerIndex = (round + 1) % 4;
 
@@ -165,10 +165,8 @@ export const RiichiSelector = ({
       setMode("game");
     }
 
-    const prevPlayers = playerList;
-
     setPlayerList(finalList);
-    commitPlayers(prevPlayers);
+    commitPlayers(finalList);
     commitRound(nextRound);
     commitHonba(nextHonba);
   };

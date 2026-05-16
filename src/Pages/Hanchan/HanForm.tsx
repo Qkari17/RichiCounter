@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { Button } from "../../ui/Button/Button";
 import { Input } from "../../ui/Button/Input";
-import { useHan } from "./HanContext";
+import { initialPlayers, useHan } from "./HanContext";
 import { useEffect, useState } from "react";
 
 export const HanForm = () => {
@@ -9,10 +9,13 @@ export const HanForm = () => {
   const {
     playerList,
     setPlayerList,
+    setRound,
+    setHonba,
     reset,
     commitPlayers,
     commitHonba,
     commitRound,
+    
   } = useHan();
   const handlePlayerName = (e, index) => {
     const updatedPlayers = playerList.map((player, i) =>
@@ -62,9 +65,10 @@ export const HanForm = () => {
             className={"bg-red-400"}
             label="Next"
             onClick={() => {
-              commitPlayers(playerList);
+              commitPlayers(initialPlayers);
               commitRound(0);
               commitHonba(0);
+            
               window.location.href = "/hanboard";
             }}
           />
@@ -99,6 +103,9 @@ export const HanForm = () => {
                   localStorage.removeItem("players");
                   localStorage.removeItem("round");
                   localStorage.removeItem("honba");
+                  setPlayerList(initialPlayers);
+                  setRound(0);
+                  setHonba(0);
                   setIsSave(false);
                 }}
               ></Button>
