@@ -51,12 +51,20 @@ export const HanForm = () => {
               className={"bg-red-400"}
               label="Next"
               onClick={() => {
-                reset();
-             
+                localStorage.clear();
+             commitPlayers(playerList)
               navigate("/hanboard");
               }}
             />
-         
+          <Button
+              className={"bg-red-400"}
+              label="Nexrtt"
+              onClick={() => {
+                localStorage.clear();
+             
+           
+              }}
+            />
         </section>
       </main>
     </div>
