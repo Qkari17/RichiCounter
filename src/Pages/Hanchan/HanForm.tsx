@@ -75,10 +75,26 @@ export const HanForm = () => {
           }
         >
           <div className="bg-blue-400 w-4/5 h-1/3 rounded-2xl flex flex-col justify-around p-5 ">
-          <h1 className="text-white text-2xl">Resume ongoing game, or start new game?</h1>
+            <h1 className="text-white text-2xl">
+              Resume ongoing game, or start new game?
+            </h1>
             <div className="flex justify-around gap-5">
-              <Button label={"Resume"} className={"bg-green-400 text-xl w-full py-2 rounded-xl text text-white"}></Button>{" "}
-              <Button label={"New Game"} className={"bg-red-400 text-xl w-full py-2 rounded-xl text text-white"}></Button>
+              <Button
+                label={"Resume"}
+                className={
+                  "bg-green-400 text-xl w-full py-2 rounded-xl text text-white"
+                }
+              ></Button>{" "}
+              <Button
+                label={"New Game"}
+                className={
+                  "bg-red-400 text-xl w-full py-2 rounded-xl text text-white"
+                }
+                onClick={() => {
+                  localStorage.removeItem("players");
+                  setIsSave(false)
+                }}
+              ></Button>
             </div>
           </div>
         </section>
