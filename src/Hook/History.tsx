@@ -5,31 +5,15 @@ export const useLocalStorageHistory = (key, initialValue, limit = 20) => {
   const [history, setHistory] = useState([]);
 
   const prevRef = useRef(initialValue);
-
 useEffect(() => {
   const storedRaw = localStorage.getItem(key);
 
-  if (!storedRaw) {
-    const initialData = {
-      current: initialValue,
-      history: [initialValue], 
-    };
-
-    localStorage.setItem(key, JSON.stringify(initialData));
-
-    setState(initialValue);
-    setHistory([initialValue]); 
-    prevRef.current = initialValue;
-
-    return;
-  }
+  if (!storedRaw) return;
 
   const stored = JSON.parse(storedRaw);
 
   setState(stored.current ?? initialValue);
-  setHistory(stored.history ?? [initialValue]);
-  prevRef.current = stored.current ?? initialValue;
-}, [key, initialValue]);
+}, [key]);
   const setValue = (value) => {
     setState((prev) => {
       const newValue = typeof value === "function" ? value(prev) : value;
@@ -42,8 +26,10 @@ useEffect(() => {
 const commit = (newState) => {
   if (newState === undefined) return;
 
+  setState(newState);
+
   setHistory((prevHistory) => {
-    const updatedHistory = [...prevHistory, prevRef.current]; 
+    const updatedHistory = [...prevHistory, prevRef.current];
 
     const storageData = {
       current: newState,
@@ -54,7 +40,7 @@ const commit = (newState) => {
 
     prevRef.current = newState;
 
-    return updatedHistory;
+    return updatedHistory.slice(-limit);
   });
 };
   const undo = () => {

@@ -3,7 +3,6 @@ import { Button } from "../../ui/Button/Button";
 import { Input } from "../../ui/Button/Input";
 import { useHan } from "./HanContext";
 
-
 export const HanForm = () => {
   const {
     playerList,
@@ -14,10 +13,14 @@ export const HanForm = () => {
     commitRound,
   } = useHan();
   const handlePlayerName = (e, index) => {
-    const updatedPlayers = [...playerList];
-    updatedPlayers[index].name = e.target.value;
-    setPlayerList(updatedPlayers);
-  };
+  const updatedPlayers = playerList.map((player, i) =>
+    i === index
+      ? { ...player, name: e.target.value }
+      : player
+  );
+
+  setPlayerList(updatedPlayers);
+};
 
   const navigate = useNavigate();
   return (
@@ -46,25 +49,15 @@ export const HanForm = () => {
               />
             ))}
           </form>
-       
-            <Button
-              className={"bg-red-400"}
-              label="Next"
-              onClick={() => {
-                localStorage.clear();
-             commitPlayers(playerList)
-              navigate("/hanboard");
-              }}
-            />
+
           <Button
-              className={"bg-red-400"}
-              label="Nexrtt"
-              onClick={() => {
-                localStorage.clear();
-             
-           
-              }}
-            />
+            className={"bg-red-400"}
+            label="Next"
+            onClick={() => {
+                            commitPlayers(playerList);
+              window.location.href = "/hanboard";
+            }}
+          />
         </section>
       </main>
     </div>
