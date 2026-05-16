@@ -63,6 +63,8 @@ export const HanForm = () => {
             label="Next"
             onClick={() => {
               commitPlayers(playerList);
+              commitRound(0);
+              commitHonba(0);
               window.location.href = "/hanboard";
             }}
           />
@@ -84,6 +86,9 @@ export const HanForm = () => {
                 className={
                   "bg-green-400 text-xl w-full py-2 rounded-xl text text-white"
                 }
+                onClick={() => {
+                  window.location.href = "/hanboard";
+                }}
               ></Button>{" "}
               <Button
                 label={"New Game"}
@@ -92,7 +97,9 @@ export const HanForm = () => {
                 }
                 onClick={() => {
                   localStorage.removeItem("players");
-                  setIsSave(false)
+                  localStorage.removeItem("round");
+                  localStorage.removeItem("honba");
+                  setIsSave(false);
                 }}
               ></Button>
             </div>
